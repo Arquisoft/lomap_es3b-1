@@ -11,6 +11,7 @@ import { PlacePOD, Place, MapType, Friend } from "../../shared/shareddtypes";
 import { getFriends, getFriendsMapsPOD } from '../../pods/Friends';
 import Amigos from './components/Amigos';
 import { getPlaces } from '../../api/api';
+import PanelIzquierdo from "./components/PanelIzquierdo";
 
 type MapProps = {
 
@@ -328,7 +329,7 @@ function MapsPage(props: MapProps): JSX.Element {
 
                     {/*Contenido menusuperior*/}
                     <div className="left">
-                        <Filters
+                        <PanelIzquierdo
                             mapas={maps}
                             friends={friends}
                             onCategoriaChange={handleCategoriaChange}
@@ -337,7 +338,6 @@ function MapsPage(props: MapProps): JSX.Element {
                             onMinDistanceChange={handleMinDistanceChange}
                             onButtonClick={handleButtonClick}
                         />
-                        <Amigos friends={friends} />
                     </div>
 
                     {/*Contenido central */}

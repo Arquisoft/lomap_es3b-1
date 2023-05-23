@@ -29,7 +29,7 @@ function getStyles(name:string, personName:string[], theme:Theme):any{
   }else{
     return {
       fontWeight:
-        theme.typography.fontWeightRegular
+        theme.typography.fontWeightRegular,
     }
   }
 }

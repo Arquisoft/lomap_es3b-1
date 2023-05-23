@@ -1,11 +1,12 @@
 :root {
-    --grey200: #e9e9e9;
+    --grey200: #1a1a1a;
     --grey300: #5d5d5d;
     --grey400: #333333;
 
-    --orange100: #e88c53;
-    --orange200: #c3713b;
-    --orange300: #4e3928;
+    --black100: #000000;
+
+    --morado100: #7C00D4;
+
 }
 
 html {
@@ -31,6 +32,9 @@ html {
     flex-direction: column;
     width: 100%;
     overflow-x: auto;
+    background-image: url('./components/img/fondo5.png');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .imagen>img {
@@ -48,7 +52,7 @@ html {
 @media(min-width:800px) {}
 
 .info>.menu {
-    background-color: var(--orange100);
+    background-color: var(--black100);
     display: grid;
     grid-auto-columns: minmax(0px, 1fr);
     grid-auto-flow: column;
@@ -66,7 +70,7 @@ html {
     justify-content: center;
     align-items: center;
     flex-wrap: nowrap;
-    background-color: var(--orange200);
+    background-color: var(--black100);
     color: white;
 }
 
@@ -79,7 +83,7 @@ html {
 }
 
 .tab:hover {
-    background-color: var(--orange300);
+    background-color: var(--black100);
 }
 
 .tab>p {
@@ -99,7 +103,7 @@ html {
 }
 
 .info>.content>.header {
-    background-color: var(--orange200);
+    background-color: var(--black100);
     border-radius: 8px 8px 0px 0px;
     padding: 0px 8px;
     display: flex;
@@ -134,7 +138,7 @@ html {
 }
 
 .info>.content>.body>button {
-    background-color: var(--orange200);
+    background-color: var(--black100);
     border: none;
     border-radius: 8px;
     width: min(100% - 15px, 840px);
@@ -145,7 +149,7 @@ html {
 }
 
 .info>.content>.body>button:hover {
-    background-color: var(--orange300);
+    background-color: var(--black100);
 }
 
 .info>.content>.body>button>p {
@@ -170,7 +174,7 @@ html {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: var(--orange200);
+    background-color: var(--black100);
     border-radius: 8px 8px 0px 0px;
 }
 
@@ -236,7 +240,7 @@ html {
 .buscador>input {
     width: 100%;
     border-radius: 8px 0px 0px 8px;
-    border: var(--orange200) 2px solid;
+    border: var(--black100) 2px solid;
 }
 
 .leaflet-container {
@@ -244,20 +248,20 @@ html {
     height: 400px;
     margin-inline: auto;
     border-radius: 8px;
-    border: var(--orange200) 2px solid;
+    border: var(--black100) 2px solid;
 }
 
 .filtros {
-    background-color: white;
+    background-color: var(--grey200);
+    color: white;
     border-radius: 8px;
     height: 100%;
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.447);
 }
 
 .filtros>.header {
-    background-color: var(--orange200);
+    background-color: var(--black100);
     color: white;
-    border-radius: 8px 8px 0px 0px;
 }
 
 .filtros>.header>p {
@@ -271,6 +275,10 @@ html {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+#dropdown-Categorias, #dropdown-Amigos, #dropdown-Mapas{
+    background-color: white;
 }
 
 .filtros>.menu>div {
@@ -299,8 +307,8 @@ html {
 
 
 .filtros>.menu>button {
-    background-color: var(--orange200);
-    border-color: var(--orange200);
+    background-color: var(--black100);
+    border-color: var(--morado100);
     margin: 0px 16px;
 }
 
@@ -312,7 +320,6 @@ html {
 .left {
     display: flex;
     flex-direction: column;
-    padding: 10px 0px 10px 10px;
 }
 
 .navigationmenu {
@@ -320,7 +327,7 @@ html {
     flex-direction: row;
     justify-content: space-between;
     align-content: center;
-    background-color: var(--orange200);
+    background-color: var(--black100);
     padding: 5px 10px;
 }
 
@@ -353,12 +360,14 @@ html {
 
 /* Modal Content */
 .modal-content {
-    background-color: #fefefe;
+    background-color: #1a1a1a;
+    border-color: var(--morado100);
+    border-width: 3px;
+    color: white;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-
 }
 
 
@@ -370,7 +379,7 @@ html {
     float: right;
     font-size: 20px;
     font-weight: bold;
-    background-color: var(--orange200);
+    background-color: var(--morado100);
     margin-bottom: 1rem;
 }
 
@@ -397,22 +406,21 @@ html {
     color: #fefefe;
     float: right;
     font-weight: bold;
-    background-color: var(--orange200);
+    background-color: var(--black100);
 }
 
 
 .amigos {
     margin-top: 10px;
-    background-color: white;
+    background-color: var(--grey200);
     border-radius: 8px;
     height: 100%;
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.447);
 }
 
 .amigos > .header {
-    background-color: var(--orange200);
+    background-color: var(--black100);
     color: white;
-    border-radius: 8px 8px 0px 0px;
 }
 
 .amigos > .header > p {
@@ -426,15 +434,14 @@ html {
     display:flex;
     flex-direction: row;
     justify-content: center;
-
 }
 
 .amigo {
     display: flex;
     flex-direction: row;
     border-radius: 8px;
-    background-color: #e9e9e9;
-    border:2px solid var(--orange200);
+    background-color: var(--grey200);
+    border:2px solid var(--morado100);
     max-width: 135px;
     justify-content: space-around;
     align-content: center;
