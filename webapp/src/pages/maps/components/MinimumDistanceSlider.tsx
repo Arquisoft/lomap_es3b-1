@@ -62,6 +62,7 @@ export default function MinimumDistanceSlider(props:MinimumDistanceSliderProps) 
       <label>Distancia(Km):</label>
       <Slider
         getAriaLabel={() => 'Distancia'}
+        style = {{color: "#7C00D4"}}
         defaultValue={50}
         valueLabelDisplay="auto"
         min={0}

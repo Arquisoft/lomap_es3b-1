@@ -64,17 +64,11 @@ function PanelIzquierdo({
                     <p>Filtros</p>
                 </div>
                 <div className="menu">
-                    <div className="dCategorias">
-                        <Dropdown items={categories} dropdownTitle="Categorias" onChange={handleCategoriaChange}/>
-                    </div>
-                    <div className="dAmigos">
-                        <Dropdown items={friends.map((friend) => friend.name)} dropdownTitle="Amigos"
-                                  onChange={handleAmigoChange}/>
-                    </div>
-                    <div className="dMapas">
-                        <Dropdown items={mapas.map((mapa) => mapa.id + "-" + mapa.ownerName)} dropdownTitle="Mapas"
-                                  onChange={handleMapaChange}/>
-                    </div>
+                    <Dropdown items={categories} dropdownTitle="Categorias" onChange={handleCategoriaChange}/>
+                    <Dropdown items={friends.map((friend) => friend.name)} dropdownTitle="Amigos"
+                              onChange={handleAmigoChange}/>
+                    <Dropdown items={mapas.map((mapa) => mapa.id + "-" + mapa.ownerName)} dropdownTitle="Mapas"
+                              onChange={handleMapaChange}/>
                     <div className="slider">
                         <MinimumDistanceSlider value={0} onChange={handleMinDistanceChange}/>
                     </div>

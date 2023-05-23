@@ -9,6 +9,7 @@ import { SelectChangeEvent } from "@mui/material";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
+
 const MenuProps = {
   PaperProps: {
     style: {
@@ -25,11 +26,17 @@ function getStyles(name:string, personName:string[], theme:Theme):any{
         personName.indexOf(name) === -1
           ? theme.typography.fontWeightRegular
           : theme.typography.fontWeightMedium,
+      color: "white",
+      background: "#131516",
+      border: "#131516",
     };
   }else{
     return {
       fontWeight:
         theme.typography.fontWeightRegular,
+      color: "white",
+      background: "#131516",
+      border: "#131516",
     }
   }
 }
@@ -54,15 +61,26 @@ function Dropdown(props:DropdownProps):JSX.Element {
   return (
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id={"dropdown-" + props.dropdownTitle + "-label"}>{props.dropdownTitle}</InputLabel>
+        <InputLabel id={"dropdown-" + props.dropdownTitle + "-label"}
+                    style={{ color: "white"}}
+        >{props.dropdownTitle}</InputLabel>
         <Select
           labelId={"dropdown-" + props.dropdownTitle + "-label"}
+          style={{ color: "white"}}
           id={"dropdown-" + props.dropdownTitle} 
           multiple
           value={personName}
           onChange={handleChange}
-          input={<OutlinedInput label={props.dropdownTitle} />}
+          input={<OutlinedInput label={props.dropdownTitle}/>}
           MenuProps={MenuProps}
+          sx={{
+            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+              borderColor: "#7C00D4", // Cambiar aquí el color del borde cuando desplegado
+            },
+            '& .MuiSelect-icon': {
+              color: 'white', // Cambiar aquí el color de la flecha
+            },
+          }}
         >
           {props.items.map((name) => (
             <MenuItem
