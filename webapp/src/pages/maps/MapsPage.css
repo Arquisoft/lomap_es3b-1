@@ -153,7 +153,7 @@ html {
 }
 
 .info>.content>.body>button:hover {
-    background-color: var(--morado100);
+    background-color: var(--morado200);
 }
 
 .info>.content>.body>button>p {
@@ -375,7 +375,6 @@ ul {
 
 
 
-
 /* The Close Button */
 .close {
     color: #fefefe;
@@ -392,7 +391,6 @@ ul {
     margin: 5px 0;
     display: block;
     z-index: 1100;
-
 }
 
 .formAñadirLugar>label>input {
@@ -400,8 +398,18 @@ ul {
     margin: 5px 0;
 }
 
-.formAñadirLugar .submit{
-    margin-right: 10px;
+.formAñadirLugar .submit {
+    margin: 0px 5px;
+    background-color: var(--morado100);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.formAñadirLugar .submit:hover {
+    background-color: var(--morado200);
 }
 
 

@@ -12,6 +12,7 @@ import { getFriends, getFriendsMapsPOD } from '../../pods/Friends';
 import Amigos from './components/Amigos';
 import { getPlaces } from '../../api/api';
 import PanelIzquierdo from "./components/PanelIzquierdo";
+import NavBar from "./components/NavBar";
 
 type MapProps = {
 
@@ -321,7 +322,7 @@ function MapsPage(props: MapProps): JSX.Element {
 
                 {/*Barra de menu de navegación*/}
                 <div className="menunavegacion">
-                    <NavigationMenu />
+                    <NavBar />
                 </div>
 
                 {/*Contenido*/}
