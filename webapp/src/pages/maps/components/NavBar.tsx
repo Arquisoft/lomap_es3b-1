@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
@@ -16,7 +15,7 @@ import IconoApp from "./IconoApp";
 import {LoginButton, LogoutButton, useSession} from "@inrupt/solid-ui-react";
 import {useState} from "react";
 import Modal from "./loginForm/Modal";
-import InicioSesion from "./InicioSesion";
+import AvatarPersonalizado from './AvatarPersonalizado';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 
@@ -166,7 +165,7 @@ function ResponsiveAppBar() {
                                 <Box sx={{flexGrow: 0}}>
                                     <Tooltip title="Open settings">
                                         <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
+                                            <AvatarPersonalizado src={session.info.webId} />
                                         </IconButton>
                                     </Tooltip>
                                     <Menu

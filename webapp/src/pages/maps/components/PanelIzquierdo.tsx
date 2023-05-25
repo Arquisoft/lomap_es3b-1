@@ -16,10 +16,6 @@ type FiltersProps = {
     onButtonClick: () => void;
 };
 
-type AmigosProps = {
-    friends: Friend[];
-};
-
 function PanelIzquierdo({
                             mapas,
                             friends,
