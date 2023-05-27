@@ -6,7 +6,7 @@
 
 <h1 align="center"><img src="https://uploads-ssl.webflow.com/5f293d335491de78b3044bf8/5f293d335491de66cb044d4d_map-new3.gif" width="1024" height="512"></h1>
 
-##¿Qué es LOMAP?
+## ¿Qué es LOMAP?
 <p align="justify">
 LoMap es un sistema de desarrollo de software versátil y personalizable que permite a los ciudadanos crear mapas personalizados, almacenar información sobre lugares de interés y compartir experiencias con amigos. Su objetivo es facilitar la exploración de la ciudad y brindar a los usuarios una herramienta poderosa para descubrir nuevos lugares y establecimientos locales.
 </p>
