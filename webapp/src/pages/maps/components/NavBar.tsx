@@ -16,6 +16,7 @@ import {LoginButton, LogoutButton, useSession} from "@inrupt/solid-ui-react";
 import {useState} from "react";
 import Modal from "./loginForm/Modal";
 import AvatarPersonalizado from './AvatarPersonalizado';
+import BarraDeProgreso from './BarraDeProgreso';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 
@@ -162,6 +163,7 @@ function ResponsiveAppBar() {
                             </>
                         ) : (
                             <>
+                                <BarraDeProgreso/>
                                 <Box sx={{flexGrow: 0}}>
                                     <Tooltip title="Open settings">
                                         <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
