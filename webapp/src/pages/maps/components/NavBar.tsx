@@ -163,7 +163,7 @@ function ResponsiveAppBar() {
                             </>
                         ) : (
                             <>
-                                <BarraDeProgreso/>
+                                <BarraDeProgreso progress={50}/>
                                 <Box sx={{flexGrow: 0}}>
                                     <Tooltip title="Open settings">
                                         <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>

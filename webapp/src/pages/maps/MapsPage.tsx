@@ -6,13 +6,14 @@ import Filters from "./components/Filters";
 import Info from "./components/Info";
 import Mapa from "./components/Mapa";
 import './MapsPage.css';
-import { getMapsPOD } from '../../pods/Markers';
-import { PlacePOD, Place, MapType, Friend } from "../../shared/shareddtypes";
+import {getMapsPOD} from '../../pods/Markers';
+import {PlacePOD, Place, MapType, Friend, LevelType} from "../../shared/shareddtypes";
 import { getFriends, getFriendsMapsPOD } from '../../pods/Friends';
 import Amigos from './components/Amigos';
 import { getPlaces } from '../../api/api';
 import PanelIzquierdo from "./components/PanelIzquierdo";
 import NavBar from "./components/NavBar";
+import {getExp} from "../../pods/Gamification";
 
 type MapProps = {
 
@@ -32,6 +33,8 @@ function MapsPage(props: MapProps): JSX.Element {
     const [minDistance, setMinDistance] = useState<number>(0);
     const [maxDistance, setMaxDistance] = useState<number>(30);
     const [onlyOnce, setOnlyOnce] = useState(true);
+    const [level, setLevel] = useState<string>();
+    const [progress, setProgress] = useState<number>(0)
 
     const { session } = useSession();
 
@@ -50,6 +53,20 @@ function MapsPage(props: MapProps): JSX.Element {
             }
         }
         return false;
+    }
+
+    const getLevelAndProgress = async () => {
+        try {
+            let level: LevelType = {
+                exp: "5"
+            }
+            var blob = new Blob([JSON.stringify(level)], { type: "aplication/json" });
+            var file = new File([blob], "level" + ".info", { type: blob.type });
+            let nivel = await getExp(session, file,webId!.split("/profile")[0] + "/public/map/")
+            console.log("Nivel " + nivel);
+        } catch (err) {
+            console.log("Error al cargar el nivel: " + err);
+        }
     }
 
     const getMarkups = async () => {
@@ -147,6 +164,7 @@ function MapsPage(props: MapProps): JSX.Element {
     if (session.info.isLoggedIn && onlyOnce) {
         setOnlyOnce(false);
         getMarkups();
+        getLevelAndProgress();
     }
 
     session.onLogout(() => {
