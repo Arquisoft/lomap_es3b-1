@@ -67,6 +67,7 @@ function MapsPage(props: MapProps): JSX.Element {
                 var file = new File([blob], "level" + ".info", { type: blob.type });
                 puntos = await getExp(session, file,webId!.split("/profile")[0] + "/public/map/")
             }
+            setProgress(puntos);
             console.log("Nivel " + puntos);
         } catch (err) {
             console.log("Error al cargar el nivel: " + err);
@@ -344,7 +345,7 @@ function MapsPage(props: MapProps): JSX.Element {
 
                 {/*Barra de menu de navegación*/}
                 <div className="menunavegacion">
-                    <NavBar />
+                    <NavBar progress={progress}/>
                 </div>
 
                 {/*Contenido*/}

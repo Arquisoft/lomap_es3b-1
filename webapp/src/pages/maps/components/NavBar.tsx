@@ -20,7 +20,11 @@ import BarraDeProgreso from './BarraDeProgreso';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 
-function ResponsiveAppBar() {
+type navBarProps = {
+    progress: number;
+}
+
+function ResponsiveAppBar(props: navBarProps) {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -163,7 +167,7 @@ function ResponsiveAppBar() {
                             </>
                         ) : (
                             <>
-                                <BarraDeProgreso progress={50}/>
+                                <BarraDeProgreso progress={props.progress}/>
                                 <Box sx={{flexGrow: 0}}>
                                     <Tooltip title="Open settings">
                                         <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
