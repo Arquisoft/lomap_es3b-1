@@ -21,7 +21,7 @@ export type PlacePOD = {
 }
 
 export type LevelType = {
-    exp: string;
+    exp: number;
 }
 
 export type MapType = {

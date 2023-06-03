@@ -34,17 +34,15 @@ export async function getExp(session: Session, file: File, url: string) {
             fetch: session.fetch
         });
 
-        console.log("Nivel " + url)
-        let nivel = await readFileFromPod(url, session, "level.info")
+        let nivel = await readFileFromPod(url + "level.info", session)
 
         return nivel;
     } catch (error) {
-        console.log("Fallo " + error)
-        return false;
+        console.log("Fallo: " + error)
     }
 }
 
-async function readFileFromPod(fileURL: string, session: Session, name:string):Promise<MapType> {
+export async function readFileFromPod(fileURL: string, session: Session) {
     try {
         const fet = session.fetch;
         const file = await getFile(
@@ -55,10 +53,7 @@ async function readFileFromPod(fileURL: string, session: Session, name:string):P
         let fileText = await file.text()
         let fileInfo = JSON.parse(fileText);
 
-        console.log(`Fetched a ${getContentType(file)} file from ${getSourceUrl(file)}.`);
-        console.log(`The file is ${isRawData(file) ? "not " : ""}a dataset.`);
-
-        return fileInfo;
+        return fileInfo.exp;
 
     } catch (err) {
         console.log("Fallo " + err)

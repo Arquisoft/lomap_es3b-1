@@ -13,7 +13,7 @@ import Amigos from './components/Amigos';
 import { getPlaces } from '../../api/api';
 import PanelIzquierdo from "./components/PanelIzquierdo";
 import NavBar from "./components/NavBar";
-import {getExp} from "../../pods/Gamification";
+import {getExp, readFileFromPod} from "../../pods/Gamification";
 
 type MapProps = {
 
@@ -57,13 +57,17 @@ function MapsPage(props: MapProps): JSX.Element {
 
     const getLevelAndProgress = async () => {
         try {
-            let level: LevelType = {
-                exp: "5"
+            var puntos = await readFileFromPod(webId!.split("/profile")[0] + "/public/map/level.info",
+                session);
+            if (puntos === undefined) {
+                let level: LevelType = {
+                    exp: 0
+                }
+                var blob = new Blob([JSON.stringify(level)], { type: "aplication/json" });
+                var file = new File([blob], "level" + ".info", { type: blob.type });
+                puntos = await getExp(session, file,webId!.split("/profile")[0] + "/public/map/")
             }
-            var blob = new Blob([JSON.stringify(level)], { type: "aplication/json" });
-            var file = new File([blob], "level" + ".info", { type: blob.type });
-            let nivel = await getExp(session, file,webId!.split("/profile")[0] + "/public/map/")
-            console.log("Nivel " + nivel);
+            console.log("Nivel " + puntos);
         } catch (err) {
             console.log("Error al cargar el nivel: " + err);
         }
