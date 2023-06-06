@@ -1,5 +1,5 @@
-import { useSession } from '@inrupt/solid-ui-react';
-import { useState } from "react";
+import {useSession} from '@inrupt/solid-ui-react';
+import {useEffect, useState} from "react";
 import NavigationMenu from "./components/NavigationMenu";
 import ModalFormAñadirLugar from "./components/ModalFormAñadirLugar"
 import Filters from "./components/Filters";
@@ -8,16 +8,14 @@ import Mapa from "./components/Mapa";
 import './MapsPage.css';
 import {getMapsPOD} from '../../pods/Markers';
 import {PlacePOD, Place, MapType, Friend, LevelType} from "../../shared/shareddtypes";
-import { getFriends, getFriendsMapsPOD } from '../../pods/Friends';
+import {getFriends, getFriendsMapsPOD} from '../../pods/Friends';
 import Amigos from './components/Amigos';
-import { getPlaces } from '../../api/api';
+import {getPlaces} from '../../api/api';
 import PanelIzquierdo from "./components/PanelIzquierdo";
 import NavBar from "./components/NavBar";
-import {getExp, readFileFromPod} from "../../pods/Gamification";
+import {getExp, readFileFromPod, sumarPuntos} from "../../pods/Gamification";
 
-type MapProps = {
-
-};
+type MapProps = {};
 
 function MapsPage(props: MapProps): JSX.Element {
     const [filteredFriends, setFilteredFriends] = useState<Array<Friend>>([]);
@@ -36,10 +34,10 @@ function MapsPage(props: MapProps): JSX.Element {
     const [level, setLevel] = useState<string>();
     const [progress, setProgress] = useState<number>(0)
 
-    const { session } = useSession();
+    const {session} = useSession();
 
     //De la session sacar el webId
-    const { webId } = session.info;
+    const {webId} = session.info;
 
     const containsMap = (MapsList: MapType[], mapa: MapType) => {
 
@@ -63,12 +61,11 @@ function MapsPage(props: MapProps): JSX.Element {
                 let level: LevelType = {
                     exp: 0
                 }
-                var blob = new Blob([JSON.stringify(level)], { type: "aplication/json" });
-                var file = new File([blob], "level" + ".info", { type: blob.type });
-                puntos = await getExp(session, file,webId!.split("/profile")[0] + "/public/map/")
+                var blob = new Blob([JSON.stringify(level)], {type: "aplication/json"});
+                var file = new File([blob], "level" + ".info", {type: blob.type});
+                puntos = await getExp(session, file, webId!.split("/profile")[0] + "/public/map/")
             }
             setProgress(puntos);
-            console.log("Nivel " + puntos);
         } catch (err) {
             console.log("Error al cargar el nivel: " + err);
         }
@@ -100,27 +97,27 @@ function MapsPage(props: MapProps): JSX.Element {
         }
 
         //Sacamos los mapas de la base de datos
-        try{
-        let placesBBDD = await getPlaces();
-        let mapBBDD:MapType = {
-            id: "MapaBBDD",
-            owner: "BBDD",
-            map: [],
-            ownerName: "BBDD"
-        };
-
-        placesBBDD.forEach(element => {
-            let place:PlacePOD = {
-                id: crypto.randomUUID(),
+        try {
+            let placesBBDD = await getPlaces();
+            let mapBBDD: MapType = {
+                id: "MapaBBDD",
                 owner: "BBDD",
-                place: element
-            }
-            placesTotales.push(place);
-            mapBBDD.map.push(place);
-        });
+                map: [],
+                ownerName: "BBDD"
+            };
 
-        mapasTotales.push(mapBBDD);
-        }catch(err){
+            placesBBDD.forEach(element => {
+                let place: PlacePOD = {
+                    id: crypto.randomUUID(),
+                    owner: "BBDD",
+                    place: element
+                }
+                placesTotales.push(place);
+                mapBBDD.map.push(place);
+            });
+
+            mapasTotales.push(mapBBDD);
+        } catch (err) {
             console.log("No se han podido sacar los lugares de la BBDD")
         }
 
@@ -166,16 +163,16 @@ function MapsPage(props: MapProps): JSX.Element {
         setFilteredPlaces(filterByDistance(centro, minDistance, maxDistance, filterByFriends(filterByCategory(placesTotales))));
     }
 
+    getLevelAndProgress();
     if (session.info.isLoggedIn && onlyOnce) {
         setOnlyOnce(false);
         getMarkups();
-        getLevelAndProgress();
     }
 
     session.onLogout(() => {
         setMaps([]);
         setFriends([]);
-        setFilteredPlaces([]);;
+        setFilteredPlaces([]);
     })
 
     const centro: [number, number] = [43.35485, -5.85123]
@@ -217,7 +214,7 @@ function MapsPage(props: MapProps): JSX.Element {
     function filterByDistance(center: [number, number], radiusInner: number, radiusOuter: number, places: PlacePOD[]): PlacePOD[] {
         const [centerLat, centerLng] = center;
         const result = places.filter(place => {
-            const { latitude, longitude } = place.place;
+            const {latitude, longitude} = place.place;
             const distance = calculateDistance(centerLat, centerLng, latitude, longitude);
             return distance >= radiusInner && distance <= radiusOuter;
         });
@@ -269,10 +266,7 @@ function MapsPage(props: MapProps): JSX.Element {
         }
     }
 
-
     const handleCategoriaChange = (selectedOption: string[]) => {
-        console.log(`Categoría seleccionada: ${selectedOption}`);
-
         if (selectedOption.length === 0) {
             setCategorias([]);
         } else {
@@ -347,7 +341,6 @@ function MapsPage(props: MapProps): JSX.Element {
                 <div className="menunavegacion">
                     <NavBar progress={progress}/>
                 </div>
-
                 {/*Contenido*/}
                 <div className="contenido">
 
@@ -370,22 +363,30 @@ function MapsPage(props: MapProps): JSX.Element {
                         {/*Mapa*/}
                         <div className="mapa">
                             <Mapa markers={filteredPlaces!}
-                                funcNewMarker={(m: L.Marker) => { handleNewMarkerOnClick(m); }}
-                                funcSelectedMarker={(m: PlacePOD) => { handleMarkerOnClick(m); }}
-                                newMarker={newMarker} selectedMarker={selectedMarker} />
+                                  funcNewMarker={(m: L.Marker) => {
+                                      handleNewMarkerOnClick(m);
+                                  }}
+                                  funcSelectedMarker={(m: PlacePOD) => {
+                                      handleMarkerOnClick(m);
+                                  }}
+                                  newMarker={newMarker} selectedMarker={selectedMarker}/>
                         </div>
 
                         {/*Información*/}
                         <div className="informacion">
-                            {selectedMarker && !newMarker ? <Info place={selectedMarker} /> : !selectedMarker && newMarker && mostrarModal ?
-                                <div id="myModal" className="modal">
-                                    <div className="modal-content">
-                                        <button id="closeModal" type="button" className="close btn btn-primary" onClick={() => setMostrarModal(false)} aria-label="Close">
-                                            <span>&times;</span>
-                                        </button>
-                                        <ModalFormAñadirLugar newPlace={newPlace} rechargeMarkers={() => { getMarkups(); }} mapas={maps!} />
-                                    </div>
-                                </div> : <></>}
+                            {selectedMarker && !newMarker ?
+                                <Info place={selectedMarker}/> : !selectedMarker && newMarker && mostrarModal ?
+                                    <div id="myModal" className="modal">
+                                        <div className="modal-content">
+                                            <button id="closeModal" type="button" className="close btn btn-primary"
+                                                    onClick={() => setMostrarModal(false)} aria-label="Close">
+                                                <span>&times;</span>
+                                            </button>
+                                            <ModalFormAñadirLugar newPlace={newPlace} rechargeMarkers={() => {
+                                                getMarkups();
+                                            }} mapas={maps!}/>
+                                        </div>
+                                    </div> : <></>}
                         </div>
                     </div>
                 </div>

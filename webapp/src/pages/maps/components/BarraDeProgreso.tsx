@@ -10,7 +10,7 @@ export default function LinearDeterminate(props: progresoProps) {
 
     return (
         <Box sx={{ width: '10%', marginRight: '1%'}}>
-            <p>Exp:</p>
+            <p>Exp: {props.progress}/100</p>
             <LinearProgress variant="determinate" value={props.progress} />
         </Box>
     );

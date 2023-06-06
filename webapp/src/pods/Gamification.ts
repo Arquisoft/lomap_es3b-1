@@ -4,10 +4,10 @@ import {
     getContentType,
     getFile,
     getSourceUrl,
-    isRawData,
+    isRawData, overwriteFile,
     saveFileInContainer
 } from "@inrupt/solid-client";
-import {MapType} from "../shared/shareddtypes";
+import {LevelType, MapType} from "../shared/shareddtypes";
 
 export async function getExp(session: Session, file: File, url: string) {
     try {
@@ -57,6 +57,28 @@ export async function readFileFromPod(fileURL: string, session: Session) {
 
     } catch (err) {
         console.log("Fallo " + err)
-        return Promise.reject();
+    }
+}
+
+export async function sumarPuntos(session: Session, url: string, puntos: number) {
+    let puntosActuales = await readFileFromPod(url,
+        session);
+
+    let total = parseInt(puntosActuales) + puntos;
+    console.log("Puntos1 " + total)
+    try {
+        let level: LevelType = {
+            exp: total
+        }
+        var blob = new Blob([JSON.stringify(level)], { type: "aplication/json" });
+        var file = new File([blob], "level" + ".info", { type: blob.type });
+        await overwriteFile(url, file, {
+            contentType: file.type,
+            fetch: session.fetch
+        });
+        console.log("Puntos3 " + total)
+
+    } catch (error) {
+        console.log("Fallo: " + error)
     }
 }
