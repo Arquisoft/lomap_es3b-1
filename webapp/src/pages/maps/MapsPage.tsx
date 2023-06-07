@@ -297,7 +297,9 @@ function MapsPage(props: MapProps): JSX.Element {
         let filteredMapPlaces: PlacePOD[] = [];
 
         filteredMaps.forEach((mapa) => {
-            mapa.map.forEach((place) => filteredMapPlaces.push(place));
+            if (mapa.map != undefined){
+                mapa.map.forEach((place) => filteredMapPlaces.push(place));
+            }
         });
 
 
