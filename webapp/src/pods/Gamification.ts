@@ -8,6 +8,7 @@ import {
     saveFileInContainer
 } from "@inrupt/solid-client";
 import {LevelType, MapType} from "../shared/shareddtypes";
+import { EventEmitter } from 'events';
 
 export async function getExp(session: Session, file: File, url: string) {
     try {
@@ -60,12 +61,13 @@ export async function readFileFromPod(fileURL: string, session: Session) {
     }
 }
 
+export const eventEmitter = new EventEmitter();
+
 export async function sumarPuntos(session: Session, url: string, puntos: number) {
     let puntosActuales = await readFileFromPod(url,
         session);
 
     let total = parseInt(puntosActuales) + puntos;
-    console.log("Puntos1 " + total)
     try {
         let level: LevelType = {
             exp: total
@@ -76,8 +78,7 @@ export async function sumarPuntos(session: Session, url: string, puntos: number)
             contentType: file.type,
             fetch: session.fetch
         });
-        console.log("Puntos3 " + total)
-
+        eventEmitter.emit('puntosSumados');
     } catch (error) {
         console.log("Fallo: " + error)
     }

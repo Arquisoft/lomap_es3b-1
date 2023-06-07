@@ -139,7 +139,6 @@ function MapsPage(props: MapProps): JSX.Element {
         setFilteredPlaces(filterByDistance(centro, minDistance, maxDistance, filterByFriends(filterByCategory(placesTotales))));
     }
 
-    //getLevelAndProgress();
     if (session.info.isLoggedIn && onlyOnce) {
         setOnlyOnce(false);
         getMarkups();
@@ -301,7 +300,6 @@ function MapsPage(props: MapProps): JSX.Element {
                 mapa.map.forEach((place) => filteredMapPlaces.push(place));
             }
         });
-
 
         setFilteredPlaces(filterByDistance(centro, minDistance, maxDistance, filterByFriends(filterByCategory(filteredMapPlaces))));
     };

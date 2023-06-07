@@ -17,7 +17,7 @@ import {useState} from "react";
 import Modal from "./loginForm/Modal";
 import AvatarPersonalizado from './AvatarPersonalizado';
 import BarraDeProgreso from './BarraDeProgreso';
-import {getExp, readFileFromPod} from "../../../pods/Gamification";
+import {eventEmitter, getExp, readFileFromPod} from "../../../pods/Gamification";
 import {LevelType} from "../../../shared/shareddtypes";
 import rojo from "./img/rojo.png";
 import azul from "./img/azul.png";
@@ -32,45 +32,24 @@ import blanco from "./img/blanco.png";
 
 const pages = ['Home', 'Help'];
 
+
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-
-    const {session} = useSession();
-    const [showModal, setShowModal] = useState(false);
 
     const [level, setLevel] = useState<number>(0);
     const [levelIcon, setLevelIcon] = useState<string>(`./components/img/rojo.png`);
     const [progress, setProgress] = useState<number>(0);
     const [puntos, setPuntos] = useState<number>(0);
 
+    const {session} = useSession();
+    const [showModal, setShowModal] = useState(false);
+
     //De la session sacar el webId
     const {webId} = session.info;
 
-    function handleOpenModal() {
-        setShowModal(true);
-    }
-
-    function handleCloseModal() {
-        setShowModal(false);
-    }
-
-    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorElNav(event.currentTarget);
-    };
-    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorElUser(event.currentTarget);
-    };
-
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
-
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
-
     const getLevelAndProgress = async () => {
+
         try {
             var puntos = await readFileFromPod(webId!.split("/profile")[0] + "/public/map/level.info",
                 session);
@@ -82,16 +61,15 @@ function ResponsiveAppBar() {
                 var file = new File([blob], "level" + ".info", {type: blob.type});
                 puntos = await getExp(session, file, webId!.split("/profile")[0] + "/public/map/")
             }
-            setLevel(Math.floor(parseInt(puntos)/100) + 1);
+            let nivel = Math.floor(parseInt(puntos) / 100) + 1
+            setLevel(nivel);
             setPuntos(puntos);
-            imagenNivel(level);
-            setProgress(puntos - (level-1)*100)
+            imagenNivel(nivel);
+            setProgress(puntos - (level - 1) * 100)
         } catch (err) {
             console.log("Error al cargar el nivel: " + err);
         }
     }
-
-    getLevelAndProgress();
 
     const imagenNivel = (nivel: number | undefined) => {
         let color: string;
@@ -132,7 +110,37 @@ function ResponsiveAppBar() {
                 break;
         }
         setLevelIcon(color);
+        console.log("Color " + color)
     }
+
+    eventEmitter.on('puntosSumados', () => {
+        getLevelAndProgress();
+    });
+
+    getLevelAndProgress();
+
+    function handleOpenModal() {
+        setShowModal(true);
+    }
+
+    function handleCloseModal() {
+        setShowModal(false);
+    }
+
+    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElNav(event.currentTarget);
+    };
+    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElUser(event.currentTarget);
+    };
+
+    const handleCloseNavMenu = () => {
+        setAnchorElNav(null);
+    };
+
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
 
     return (
         <div className="navigationmenu">
