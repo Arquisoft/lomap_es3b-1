@@ -178,7 +178,7 @@ function ResponsiveAppBar(props: navBarProps) {
                                         <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                                             <AvatarPersonalizado
                                                 src={session.info.webId}
-
+                                                levelIcon={props.levelIcon}
                                             />
                                         </IconButton>
                                     </Tooltip>

@@ -14,6 +14,17 @@ import {getPlaces} from '../../api/api';
 import PanelIzquierdo from "./components/PanelIzquierdo";
 import NavBar from "./components/NavBar";
 import {getExp, readFileFromPod, sumarPuntos} from "../../pods/Gamification";
+import rojo from './components/img/rojo.png';
+import azul from './components/img/azul.png';
+import verde from './components/img/verde.png';
+import amarillo from './components/img/amarillo.png';
+import morado from './components/img/morado.png';
+import naranja from './components/img/naranja.png';
+import rosa from './components/img/rosa.png';
+import turquesa from './components/img/turquesa.png';
+import gris from './components/img/gris.png';
+import blanco from './components/img/blanco.png';
+
 
 type MapProps = {};
 
@@ -34,6 +45,7 @@ function MapsPage(props: MapProps): JSX.Element {
     const [level, setLevel] = useState<number>(0);
     const [levelIcon, setLevelIcon] = useState<string>(`./components/img/rojo.png`);
     const [progress, setProgress] = useState<number>(0);
+    const [puntos, setPuntos] = useState<number>(0);
 
     const {session} = useSession();
 
@@ -67,8 +79,9 @@ function MapsPage(props: MapProps): JSX.Element {
                 puntos = await getExp(session, file, webId!.split("/profile")[0] + "/public/map/")
             }
             setLevel(Math.floor(parseInt(puntos)/100) + 1);
-            setProgress(puntos);
+            setPuntos(puntos);
             imagenNivel(level);
+            setProgress(puntos - (level-1)*100)
         } catch (err) {
             console.log("Error al cargar el nivel: " + err);
         }
@@ -79,40 +92,40 @@ function MapsPage(props: MapProps): JSX.Element {
 
         switch (nivel) {
             case 1:
-                color = "rojo";
+                color = rojo;
                 break;
             case 2:
-                color = "azul";
+                color = azul;
                 break;
             case 3:
-                color = "verde";
+                color = verde;
                 break;
             case 4:
-                color = "amarillo";
+                color = amarillo;
                 break;
             case 5:
-                color = "morado";
+                color = morado;
                 break;
             case 6:
-                color = "naranja";
+                color = naranja;
                 break;
             case 7:
-                color = "rosa";
+                color = rosa;
                 break;
             case 8:
-                color = "turquesa";
+                color = turquesa;
                 break;
             case 9:
-                color = "gris";
+                color = gris;
                 break;
             case 10:
-                color = "blanco";
+                color = blanco;
                 break;
             default:
-                color = "rojo";
+                color = rojo;
                 break;
         }
-        setLevelIcon('./components/img/${color}.png');
+        setLevelIcon(color);
     }
 
     const getMarkups = async () => {

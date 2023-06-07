@@ -21,6 +21,7 @@ async function getProfilePhoto(webId: string): Promise<string | undefined> {
 
 type avatarProps = {
     src?: string;
+    levelIcon: string;
 }
 
 export default function BadgeAvatars(props: avatarProps) {
@@ -29,8 +30,9 @@ export default function BadgeAvatars(props: avatarProps) {
 
     getProfilePhoto(webId).then((photoUrl) => {
         setPhoto(photoUrl ?? './img/fondo5.png');
-        console.log(photo)
     })
+
+    console.log("Nivel: " + props.levelIcon)
 
     return (
         <CombinedDataProvider datasetUrl={webId} thingUrl={webId}>
@@ -38,7 +40,7 @@ export default function BadgeAvatars(props: avatarProps) {
                 overlap="circular"
                 anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
                 badgeContent={
-                    <SmallAvatar alt="Texto alternativo" src='./img/fondo5.png'/>
+                    <SmallAvatar alt="Texto alternativo" src={props.levelIcon}/>
                 }>
                 <Avatar alt="Texto alternativo" src={photo || './img/fondo5.png'} />
             </Badge>
