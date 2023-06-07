@@ -167,7 +167,12 @@ function ModalFormAñadirLugar(props: FormProps): JSX.Element {
         }else{
             await addMarker(props.newPlace!);
         }
-        await sumarPuntos(session, webId!.split("/profile")[0] + "/public/map/level.info", 150);
+        let puntosGanados = 10;
+        puntosGanados += fotos!.length * 5;
+        if(comentario.text.trim() != "") {
+            puntosGanados += 10;
+        }
+        await sumarPuntos(session, webId!.split("/profile")[0] + "/public/map/level.info", puntosGanados);
     }
 
     return (
