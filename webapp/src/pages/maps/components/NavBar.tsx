@@ -17,21 +17,35 @@ import {useState} from "react";
 import Modal from "./loginForm/Modal";
 import AvatarPersonalizado from './AvatarPersonalizado';
 import BarraDeProgreso from './BarraDeProgreso';
+import {getExp, readFileFromPod} from "../../../pods/Gamification";
+import {LevelType} from "../../../shared/shareddtypes";
+import rojo from "./img/rojo.png";
+import azul from "./img/azul.png";
+import verde from "./img/verde.png";
+import amarillo from "./img/amarillo.png";
+import morado from "./img/morado.png";
+import naranja from "./img/naranja.png";
+import rosa from "./img/rosa.png";
+import turquesa from "./img/turquesa.png";
+import gris from "./img/gris.png";
+import blanco from "./img/blanco.png";
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['Home', 'Help'];
 
-type navBarProps = {
-    progress: number;
-    level: number;
-    levelIcon: string;
-}
-
-function ResponsiveAppBar(props: navBarProps) {
+function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
     const {session} = useSession();
     const [showModal, setShowModal] = useState(false);
+
+    const [level, setLevel] = useState<number>(0);
+    const [levelIcon, setLevelIcon] = useState<string>(`./components/img/rojo.png`);
+    const [progress, setProgress] = useState<number>(0);
+    const [puntos, setPuntos] = useState<number>(0);
+
+    //De la session sacar el webId
+    const {webId} = session.info;
 
     function handleOpenModal() {
         setShowModal(true);
@@ -55,6 +69,70 @@ function ResponsiveAppBar(props: navBarProps) {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const getLevelAndProgress = async () => {
+        try {
+            var puntos = await readFileFromPod(webId!.split("/profile")[0] + "/public/map/level.info",
+                session);
+            if (puntos === undefined) {
+                let levelT: LevelType = {
+                    exp: 0
+                }
+                var blob = new Blob([JSON.stringify(levelT)], {type: "aplication/json"});
+                var file = new File([blob], "level" + ".info", {type: blob.type});
+                puntos = await getExp(session, file, webId!.split("/profile")[0] + "/public/map/")
+            }
+            setLevel(Math.floor(parseInt(puntos)/100) + 1);
+            setPuntos(puntos);
+            imagenNivel(level);
+            setProgress(puntos - (level-1)*100)
+        } catch (err) {
+            console.log("Error al cargar el nivel: " + err);
+        }
+    }
+
+    getLevelAndProgress();
+
+    const imagenNivel = (nivel: number | undefined) => {
+        let color: string;
+
+        switch (nivel) {
+            case 1:
+                color = rojo;
+                break;
+            case 2:
+                color = azul;
+                break;
+            case 3:
+                color = verde;
+                break;
+            case 4:
+                color = amarillo;
+                break;
+            case 5:
+                color = morado;
+                break;
+            case 6:
+                color = naranja;
+                break;
+            case 7:
+                color = rosa;
+                break;
+            case 8:
+                color = turquesa;
+                break;
+            case 9:
+                color = gris;
+                break;
+            case 10:
+                color = blanco;
+                break;
+            default:
+                color = rojo;
+                break;
+        }
+        setLevelIcon(color);
+    }
 
     return (
         <div className="navigationmenu">
@@ -170,15 +248,15 @@ function ResponsiveAppBar(props: navBarProps) {
                         ) : (
                             <>
                                 <BarraDeProgreso
-                                    progress={props.progress}
-                                    level={props.level}
+                                    progress={progress}
+                                    level={level}
                                 />
                                 <Box sx={{flexGrow: 0}}>
                                     <Tooltip title="Open settings">
                                         <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                                             <AvatarPersonalizado
                                                 src={session.info.webId}
-                                                levelIcon={props.levelIcon}
+                                                levelIcon={levelIcon}
                                             />
                                         </IconButton>
                                     </Tooltip>

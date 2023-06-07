@@ -1,29 +1,14 @@
 import {useSession} from '@inrupt/solid-ui-react';
-import {useEffect, useState} from "react";
-import NavigationMenu from "./components/NavigationMenu";
+import {useState} from "react";
 import ModalFormAñadirLugar from "./components/ModalFormAñadirLugar"
-import Filters from "./components/Filters";
 import Info from "./components/Info";
 import Mapa from "./components/Mapa";
 import './MapsPage.css';
 import {getMapsPOD} from '../../pods/Markers';
-import {PlacePOD, Place, MapType, Friend, LevelType} from "../../shared/shareddtypes";
+import {PlacePOD, Place, MapType, Friend} from "../../shared/shareddtypes";
 import {getFriends, getFriendsMapsPOD} from '../../pods/Friends';
-import Amigos from './components/Amigos';
 import {getPlaces} from '../../api/api';
 import PanelIzquierdo from "./components/PanelIzquierdo";
-import NavBar from "./components/NavBar";
-import {getExp, readFileFromPod, sumarPuntos} from "../../pods/Gamification";
-import rojo from './components/img/rojo.png';
-import azul from './components/img/azul.png';
-import verde from './components/img/verde.png';
-import amarillo from './components/img/amarillo.png';
-import morado from './components/img/morado.png';
-import naranja from './components/img/naranja.png';
-import rosa from './components/img/rosa.png';
-import turquesa from './components/img/turquesa.png';
-import gris from './components/img/gris.png';
-import blanco from './components/img/blanco.png';
 
 
 type MapProps = {};
@@ -42,10 +27,6 @@ function MapsPage(props: MapProps): JSX.Element {
     const [minDistance, setMinDistance] = useState<number>(0);
     const [maxDistance, setMaxDistance] = useState<number>(30);
     const [onlyOnce, setOnlyOnce] = useState(true);
-    const [level, setLevel] = useState<number>(0);
-    const [levelIcon, setLevelIcon] = useState<string>(`./components/img/rojo.png`);
-    const [progress, setProgress] = useState<number>(0);
-    const [puntos, setPuntos] = useState<number>(0);
 
     const {session} = useSession();
 
@@ -64,68 +45,6 @@ function MapsPage(props: MapProps): JSX.Element {
             }
         }
         return false;
-    }
-
-    const getLevelAndProgress = async () => {
-        try {
-            var puntos = await readFileFromPod(webId!.split("/profile")[0] + "/public/map/level.info",
-                session);
-            if (puntos === undefined) {
-                let levelT: LevelType = {
-                    exp: 0
-                }
-                var blob = new Blob([JSON.stringify(levelT)], {type: "aplication/json"});
-                var file = new File([blob], "level" + ".info", {type: blob.type});
-                puntos = await getExp(session, file, webId!.split("/profile")[0] + "/public/map/")
-            }
-            setLevel(Math.floor(parseInt(puntos)/100) + 1);
-            setPuntos(puntos);
-            imagenNivel(level);
-            setProgress(puntos - (level-1)*100)
-        } catch (err) {
-            console.log("Error al cargar el nivel: " + err);
-        }
-    }
-
-    const imagenNivel = (nivel: number | undefined) => {
-        let color: string;
-
-        switch (nivel) {
-            case 1:
-                color = rojo;
-                break;
-            case 2:
-                color = azul;
-                break;
-            case 3:
-                color = verde;
-                break;
-            case 4:
-                color = amarillo;
-                break;
-            case 5:
-                color = morado;
-                break;
-            case 6:
-                color = naranja;
-                break;
-            case 7:
-                color = rosa;
-                break;
-            case 8:
-                color = turquesa;
-                break;
-            case 9:
-                color = gris;
-                break;
-            case 10:
-                color = blanco;
-                break;
-            default:
-                color = rojo;
-                break;
-        }
-        setLevelIcon(color);
     }
 
     const getMarkups = async () => {
@@ -220,7 +139,7 @@ function MapsPage(props: MapProps): JSX.Element {
         setFilteredPlaces(filterByDistance(centro, minDistance, maxDistance, filterByFriends(filterByCategory(placesTotales))));
     }
 
-    getLevelAndProgress();
+    //getLevelAndProgress();
     if (session.info.isLoggedIn && onlyOnce) {
         setOnlyOnce(false);
         getMarkups();
@@ -347,8 +266,6 @@ function MapsPage(props: MapProps): JSX.Element {
     };
 
     const handleMapaChange = (selectedOption: string[]) => {
-        console.log(`Mapa seleccionado: ${selectedOption}`);
-
         var nombres = new Array<string>();
         var nombrePropietario = new Array<string>();
 
@@ -357,8 +274,6 @@ function MapsPage(props: MapProps): JSX.Element {
             nombres.push(nomrbes[0]);
             nombrePropietario.push(nomrbes[1]);
         });
-
-        console.log(`Mapa seleccionado: ${nombres}`);
 
         let selectedMaps = maps.filter((mapa) => {
             return nombres.includes(mapa.id) && nombrePropietario.includes(mapa.ownerName);
@@ -378,8 +293,6 @@ function MapsPage(props: MapProps): JSX.Element {
     };
 
     const handleButtonClick = () => {
-        console.log("Monstrando todos los puntos entre " + minDistance + " y " + maxDistance + " que entren en las categorias " +
-            categorias);
 
         let filteredMapPlaces: PlacePOD[] = [];
 
@@ -387,24 +300,15 @@ function MapsPage(props: MapProps): JSX.Element {
             mapa.map.forEach((place) => filteredMapPlaces.push(place));
         });
 
+
         setFilteredPlaces(filterByDistance(centro, minDistance, maxDistance, filterByFriends(filterByCategory(filteredMapPlaces))));
     };
 
     return (
         <>
             <div className="mapspage">
-
-                {/*Barra de menu de navegación*/}
-                <div className="menunavegacion">
-                    <NavBar
-                        progress={progress}
-                        level={level}
-                        levelIcon={levelIcon}
-                    />
-                </div>
                 {/*Contenido*/}
                 <div className="contenido">
-
                     {/*Contenido menusuperior*/}
                     <div className="left">
                         <PanelIzquierdo
