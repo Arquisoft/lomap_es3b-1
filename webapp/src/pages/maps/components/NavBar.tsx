@@ -22,6 +22,8 @@ const pages = ['Products', 'Pricing', 'Blog'];
 
 type navBarProps = {
     progress: number;
+    level: number;
+    levelIcon: string;
 }
 
 function ResponsiveAppBar(props: navBarProps) {
@@ -167,11 +169,17 @@ function ResponsiveAppBar(props: navBarProps) {
                             </>
                         ) : (
                             <>
-                                <BarraDeProgreso progress={props.progress}/>
+                                <BarraDeProgreso
+                                    progress={props.progress}
+                                    level={props.level}
+                                />
                                 <Box sx={{flexGrow: 0}}>
                                     <Tooltip title="Open settings">
                                         <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                            <AvatarPersonalizado src={session.info.webId} />
+                                            <AvatarPersonalizado
+                                                src={session.info.webId}
+
+                                            />
                                         </IconButton>
                                     </Tooltip>
                                     <Menu

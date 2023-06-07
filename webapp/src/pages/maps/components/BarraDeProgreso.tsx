@@ -1,17 +1,20 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
+import Tooltip from "@mui/material/Tooltip";
 
 type progresoProps = {
     progress: number;
+    level: number;
 }
 
 export default function LinearDeterminate(props: progresoProps) {
-
     return (
-        <Box sx={{ width: '10%', marginRight: '1%'}}>
-            <p>Exp: {props.progress}/100</p>
-            <LinearProgress variant="determinate" value={props.progress} />
+        <Box sx={{ width: '10%', marginRight: '1%', marginLeft: '1%'}}>
+            <p>Nivel: {props.level}</p>
+            <Tooltip title={`${props.progress}/100`} placement="top">
+                <LinearProgress variant="determinate" value={props.progress} />
+            </Tooltip>
         </Box>
     );
 }

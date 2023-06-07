@@ -31,8 +31,8 @@ function MapsPage(props: MapProps): JSX.Element {
     const [minDistance, setMinDistance] = useState<number>(0);
     const [maxDistance, setMaxDistance] = useState<number>(30);
     const [onlyOnce, setOnlyOnce] = useState(true);
-    const [level, setLevel] = useState<number>();
-    const [levelIcon, setLevelIcon] = useState<String>();
+    const [level, setLevel] = useState<number>(0);
+    const [levelIcon, setLevelIcon] = useState<string>(`./components/img/rojo.png`);
     const [progress, setProgress] = useState<number>(0);
 
     const {session} = useSession();
@@ -59,18 +59,60 @@ function MapsPage(props: MapProps): JSX.Element {
             var puntos = await readFileFromPod(webId!.split("/profile")[0] + "/public/map/level.info",
                 session);
             if (puntos === undefined) {
-                let level: LevelType = {
+                let levelT: LevelType = {
                     exp: 0
                 }
-                var blob = new Blob([JSON.stringify(level)], {type: "aplication/json"});
+                var blob = new Blob([JSON.stringify(levelT)], {type: "aplication/json"});
                 var file = new File([blob], "level" + ".info", {type: blob.type});
                 puntos = await getExp(session, file, webId!.split("/profile")[0] + "/public/map/")
             }
-            setLevel(parseInt(puntos)%100)
+            setLevel(Math.floor(parseInt(puntos)/100) + 1);
             setProgress(puntos);
+            imagenNivel(level);
         } catch (err) {
             console.log("Error al cargar el nivel: " + err);
         }
+    }
+
+    const imagenNivel = (nivel: number | undefined) => {
+        let color: string;
+
+        switch (nivel) {
+            case 1:
+                color = "rojo";
+                break;
+            case 2:
+                color = "azul";
+                break;
+            case 3:
+                color = "verde";
+                break;
+            case 4:
+                color = "amarillo";
+                break;
+            case 5:
+                color = "morado";
+                break;
+            case 6:
+                color = "naranja";
+                break;
+            case 7:
+                color = "rosa";
+                break;
+            case 8:
+                color = "turquesa";
+                break;
+            case 9:
+                color = "gris";
+                break;
+            case 10:
+                color = "blanco";
+                break;
+            default:
+                color = "rojo";
+                break;
+        }
+        setLevelIcon('./components/img/${color}.png');
     }
 
     const getMarkups = async () => {
@@ -341,7 +383,11 @@ function MapsPage(props: MapProps): JSX.Element {
 
                 {/*Barra de menu de navegación*/}
                 <div className="menunavegacion">
-                    <NavBar progress={progress}/>
+                    <NavBar
+                        progress={progress}
+                        level={level}
+                        levelIcon={levelIcon}
+                    />
                 </div>
                 {/*Contenido*/}
                 <div className="contenido">
