@@ -28,7 +28,7 @@ export default function BadgeAvatars(props: avatarProps) {
     let webId: string = props.src ?? "Valor predeterminado";
 
     getProfilePhoto(webId).then((photoUrl) => {
-        setPhoto(photoUrl ?? './img/fondo.png');
+        setPhoto(photoUrl ?? './img/fondo5.png');
         console.log(photo)
     })
 
@@ -38,9 +38,9 @@ export default function BadgeAvatars(props: avatarProps) {
                 overlap="circular"
                 anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
                 badgeContent={
-                    <SmallAvatar alt="Texto alternativo" src={props.src}/>
+                    <SmallAvatar alt="Texto alternativo" src='./img/fondo5.png'/>
                 }>
-                <Avatar alt="Texto alternativo" src={photo || './img/fondo.png'} />
+                <Avatar alt="Texto alternativo" src={photo || './img/fondo5.png'} />
             </Badge>
         </CombinedDataProvider>
     );

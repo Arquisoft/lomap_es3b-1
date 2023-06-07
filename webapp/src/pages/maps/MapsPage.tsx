@@ -31,8 +31,9 @@ function MapsPage(props: MapProps): JSX.Element {
     const [minDistance, setMinDistance] = useState<number>(0);
     const [maxDistance, setMaxDistance] = useState<number>(30);
     const [onlyOnce, setOnlyOnce] = useState(true);
-    const [level, setLevel] = useState<string>();
-    const [progress, setProgress] = useState<number>(0)
+    const [level, setLevel] = useState<number>();
+    const [levelIcon, setLevelIcon] = useState<String>();
+    const [progress, setProgress] = useState<number>(0);
 
     const {session} = useSession();
 
@@ -65,6 +66,7 @@ function MapsPage(props: MapProps): JSX.Element {
                 var file = new File([blob], "level" + ".info", {type: blob.type});
                 puntos = await getExp(session, file, webId!.split("/profile")[0] + "/public/map/")
             }
+            setLevel(parseInt(puntos)%100)
             setProgress(puntos);
         } catch (err) {
             console.log("Error al cargar el nivel: " + err);
