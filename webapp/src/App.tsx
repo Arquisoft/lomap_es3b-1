@@ -1,10 +1,11 @@
 import React from 'react';
 import {SessionProvider} from '@inrupt/solid-ui-react';
-import {BrowserRouter as Router, Navigate, Route, Routes} from "react-router-dom";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import MapsPage from './pages/maps/MapsPage';
 import HelpPage from './pages/help/Help';
 import './App.css';
 import NavBar from "./pages/maps/components/NavBar";
+
 
 
 function App(): JSX.Element {
