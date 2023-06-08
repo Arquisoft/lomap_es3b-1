@@ -107,11 +107,14 @@ function ResponsiveAppBar() {
                 color = blanco;
                 break;
             default:
-                color = rojo;
+                if(nivel! > 10){
+                    color = blanco;
+                } else {
+                    color = rojo;
+                }
                 break;
         }
         setLevelIcon(color);
-        console.log("Color " + color)
     }
 
     eventEmitter.on('puntosSumados', () => {
