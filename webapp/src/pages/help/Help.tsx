@@ -1,4 +1,5 @@
 import colores from "./img/colores.png";
+import "./Help.css"
 
 type HelpProps = {};
 

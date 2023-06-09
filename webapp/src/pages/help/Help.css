@@ -1,17 +1,22 @@
 .helpPage {
-    height: 100%;
     display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    overflow-y: hidden;
 }
 
-.contenido {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
+.contenidoHelp {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    text-align: center;
+    margin: 0 auto;
+    overflow-y: auto;
+    max-height: calc(100vh - 64px); /* Ajusta el valor según el tamaño de la barra de navegación */
+
 }
 
 .centroHelp {
-    display: flex;
-    flex-direction: column;
+    margin: 0 auto;
 }

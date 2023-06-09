@@ -21,7 +21,6 @@ html {
     height: 100%;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
 }
 
 .contenido {
@@ -36,9 +35,6 @@ html {
     flex-direction: column;
     width: 100%;
     overflow-x: auto;
-    background-image: url('./components/img/fondo5.png');
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 .imagen>img {
