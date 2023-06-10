@@ -11,24 +11,24 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import IconoApp from "./IconoApp";
+import IconoApp from "../../pages/maps/components/IconoApp";
 import {LoginButton, LogoutButton, useSession} from "@inrupt/solid-ui-react";
 import {useState} from "react";
 import Modal from "./loginForm/Modal";
 import AvatarPersonalizado from './AvatarPersonalizado';
 import BarraDeProgreso from './BarraDeProgreso';
-import {eventEmitter, getExp, readFileFromPod} from "../../../pods/Gamification";
-import {LevelType} from "../../../shared/shareddtypes";
-import rojo from "./img/rojo.png";
-import azul from "./img/azul.png";
-import verde from "./img/verde.png";
-import amarillo from "./img/amarillo.png";
-import morado from "./img/morado.png";
-import naranja from "./img/naranja.png";
-import rosa from "./img/rosa.png";
-import turquesa from "./img/turquesa.png";
-import gris from "./img/gris.png";
-import blanco from "./img/blanco.png";
+import {eventEmitter, getExp, readFileFromPod} from "../../pods/Gamification";
+import {LevelType} from "../../shared/shareddtypes";
+import rojo from "../../pages/maps/components/img/rojo.png";
+import azul from "../../pages/maps/components/img/azul.png";
+import verde from "../../pages/maps/components/img/verde.png";
+import amarillo from "../../pages/maps/components/img/amarillo.png";
+import morado from "../../pages/maps/components/img/morado.png";
+import naranja from "../../pages/maps/components/img/naranja.png";
+import rosa from "../../pages/maps/components/img/rosa.png";
+import turquesa from "../../pages/maps/components/img/turquesa.png";
+import gris from "../../pages/maps/components/img/gris.png";
+import blanco from "../../pages/maps/components/img/blanco.png";
 import {Link} from "react-router-dom";
 
 const pages = ['Home', 'Help'];
@@ -196,7 +196,7 @@ function ResponsiveAppBar() {
                                 component={Link}
                                 to='/'
                                 sx={{my: 2, color: 'white', display: 'block'}}>
-                                Home
+                                Mapa
                             </Button>
                             <Button
                                 key='Help'
@@ -204,7 +204,7 @@ function ResponsiveAppBar() {
                                 component={Link}
                                 to='/help'
                                 sx={{my: 2, color: 'white', display: 'block'}}>
-                                Help
+                                Ayuda
                             </Button>
                         </Box>
                         {!session.info.isLoggedIn ? (
@@ -257,8 +257,14 @@ function ResponsiveAppBar() {
                                         open={Boolean(anchorElUser)}
                                         onClose={handleCloseUserMenu}>
                                         <MenuItem onClick={handleCloseUserMenu}>
-                                            <Typography textAlign="center"
-                                                        style={{color: 'white'}}>Perfil</Typography>
+                                            <Button
+                                                key='profile'
+                                                onClick={handleCloseNavMenu}
+                                                component={Link}
+                                                to='/profile'
+                                                sx={{my: 2, color: 'white', display: 'block'}}>
+                                                Perfil
+                                            </Button>
                                         </MenuItem>
                                         <MenuItem onClick={handleCloseUserMenu}>
                                             <LogoutButton onError={console.log}>

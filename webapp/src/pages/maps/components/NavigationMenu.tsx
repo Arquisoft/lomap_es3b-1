@@ -1,6 +1,6 @@
 import React from "react";
 import IconoApp from "./IconoApp";
-import InicioSesion from "./InicioSesion";
+import InicioSesion from "../../../commonComponents/components/InicioSesion";
 
 function NavigationMenu():JSX.Element{
     return (
