@@ -32,8 +32,6 @@ export default function BadgeAvatars(props: avatarProps) {
         setPhoto(photoUrl ?? './img/fondo5.png');
     })
 
-    console.log("Nivel: " + props.levelIcon)
-
     return (
         <CombinedDataProvider datasetUrl={webId} thingUrl={webId}>
             <Badge

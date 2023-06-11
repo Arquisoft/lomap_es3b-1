@@ -21,3 +21,7 @@
 .centroProfile {
     margin: 0 auto;
 }
+
+.friends>  ul, li {
+    background-color: #f2f2f2;
+}
