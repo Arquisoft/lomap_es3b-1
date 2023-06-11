@@ -6,11 +6,12 @@ import Tooltip from "@mui/material/Tooltip";
 type progresoProps = {
     progress: number;
     level: number;
+    widthPercent: number;
 }
 
 export default function LinearDeterminate(props: progresoProps) {
     return (
-        <Box sx={{ width: '10%', marginRight: '1%', marginLeft: '1%'}}>
+        <Box sx={{ width: `${props.widthPercent}%`, marginRight: '1%', marginLeft: '1%'}}>
             <p>Nivel: {props.level}</p>
             <Tooltip title={`${props.progress}/100`} placement="top">
                 <LinearProgress variant="determinate" value={props.progress} />

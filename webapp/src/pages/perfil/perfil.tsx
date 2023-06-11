@@ -1,5 +1,6 @@
 import "./perfil.css"
 import AvatarPersonalizado from '../../commonComponents/components/AvatarPersonalizado';
+import BarraDeProgreso from '../../commonComponents/components/BarraDeProgreso';
 import {useState} from "react";
 import {getExp, readFileFromPod} from "../../pods/Gamification";
 import {LevelType} from "../../shared/shareddtypes";
@@ -89,7 +90,7 @@ function Perfil(props: profileProps): JSX.Element {
                 color = blanco;
                 break;
             default:
-                if(nivel! > 10){
+                if (nivel! > 10) {
                     color = blanco;
                 } else {
                     color = rojo;
@@ -110,8 +111,8 @@ function Perfil(props: profileProps): JSX.Element {
             <div className="profilePage">
                 <div className="contenidoProfile">
                     <div className="centroProfile">
-                        <div style={{ position: 'relative', display: 'inline-block', width: '500px', height: '300px' }}>
-                            <img src={banner} alt="Banner" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
+                        <div style={{position: 'relative', display: 'inline-block', width: '500px', height: '300px'}}>
+                            <img src={banner} alt="Banner" style={{objectFit: 'cover', width: '100%', height: '100%'}}/>
 
                             <div
                                 style={{
@@ -119,15 +120,19 @@ function Perfil(props: profileProps): JSX.Element {
                                     top: '70%',
                                     left: '50%',
                                     transform: 'translate(-50%, -50%)',
-                                }}
-                            >
-                                <AvatarPersonalizado src={session.info.webId} levelIcon={levelIcon} />
+                                }}>
+                                <AvatarPersonalizado src={session.info.webId} levelIcon={levelIcon}/>
                             </div>
                         </div>
+                        <IconButton onClick={handleButtonClick}>
+                            <ContactEmergencyIcon/>{("Página de tu POD")}
+                        </IconButton>
+                        <BarraDeProgreso
+                            progress={progress}
+                            level={level}
+                            widthPercent={100}
+                        />
                     </div>
-                    <IconButton onClick={handleButtonClick}>
-                        <ContactEmergencyIcon/>{("Página de tu POD")}
-                    </IconButton>
                 </div>
             </div>
         </>

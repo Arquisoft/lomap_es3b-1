@@ -231,6 +231,7 @@ function ResponsiveAppBar() {
                                 <BarraDeProgreso
                                     progress={progress}
                                     level={level}
+                                    widthPercent={10}
                                 />
                                 <Box sx={{flexGrow: 0}}>
                                     <Tooltip title="Open settings">
