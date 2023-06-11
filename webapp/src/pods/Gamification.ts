@@ -11,7 +11,9 @@ import {LevelType, MapType} from "../shared/shareddtypes";
 import { EventEmitter } from 'events';
 
 export async function getExp(session: Session, file: File, url: string) {
+    console.log("getExp")
     try {
+
 
         //Comprobamos si existe la carpeta de mapas en el POD
         const fet = session.fetch;
@@ -44,7 +46,9 @@ export async function getExp(session: Session, file: File, url: string) {
 }
 
 export async function readFileFromPod(fileURL: string, session: Session) {
+    console.log("readFileFromPod")
     try {
+
         const fet = session.fetch;
         const file = await getFile(
             fileURL,               // File in Pod to Read
@@ -56,6 +60,7 @@ export async function readFileFromPod(fileURL: string, session: Session) {
 
         return fileInfo.exp;
 
+
     } catch (err) {
         console.log("Fallo " + err)
     }
@@ -64,8 +69,10 @@ export async function readFileFromPod(fileURL: string, session: Session) {
 export const eventEmitter = new EventEmitter();
 
 export async function sumarPuntos(session: Session, url: string, puntos: number) {
+    console.log("sumarPuntos")
     let puntosActuales = await readFileFromPod(url,
         session);
+
 
     let total = parseInt(puntosActuales) + puntos;
     try {

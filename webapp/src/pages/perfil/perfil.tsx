@@ -1,8 +1,8 @@
 import "./perfil.css"
 import AvatarPersonalizado from '../../commonComponents/components/AvatarPersonalizado';
 import BarraDeProgreso from '../../commonComponents/components/BarraDeProgreso';
-import {useState} from "react";
-import {getExp, readFileFromPod} from "../../pods/Gamification";
+import {useEffect, useState} from "react";
+import {eventEmitter, getExp, readFileFromPod} from "../../pods/Gamification";
 import {Friend, LevelType} from "../../shared/shareddtypes";
 import rojo from "../maps/components/img/rojo.png";
 import azul from "../maps/components/img/azul.png";
@@ -39,7 +39,6 @@ function Perfil(props: profileProps): JSX.Element {
 
 
     const getLevelAndProgress = async () => {
-
         try {
             var puntos = await readFileFromPod(webId!.split("/profile")[0] + "/public/map/level.info",
                 session);
@@ -49,6 +48,7 @@ function Perfil(props: profileProps): JSX.Element {
                 }
                 var blob = new Blob([JSON.stringify(levelT)], {type: "aplication/json"});
                 var file = new File([blob], "level" + ".info", {type: blob.type});
+
                 puntos = await getExp(session, file, webId!.split("/profile")[0] + "/public/map/")
             }
             let nivel = Math.floor(parseInt(puntos) / 100) + 1
@@ -106,8 +106,6 @@ function Perfil(props: profileProps): JSX.Element {
         setLevelIcon(color);
     }
 
-    getLevelAndProgress();
-
     function handleButtonClick() {
         window.open(webId, '_blank');
     }
@@ -126,8 +124,11 @@ function Perfil(props: profileProps): JSX.Element {
         }
     }
 
+    useEffect(() => {
+        getFriendsToList();
+    }, []);
 
-    getFriendsToList();
+    getLevelAndProgress();
 
     return (
         <>
@@ -153,7 +154,7 @@ function Perfil(props: profileProps): JSX.Element {
                         <BarraDeProgreso
                             progress={progress}
                             level={level}
-                            widthPercent={100}
+                            widthPercent={98}
                         />
                         <div className="friendsConfig">
                             {friends.length > 0 ? (
