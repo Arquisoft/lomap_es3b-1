@@ -9,6 +9,7 @@ import "react-widgets/styles.css";
 import StarRatings from 'react-star-ratings';
 import { getProfileName } from "../../../pods/Profile";
 import { addMarker } from "../../../api/api";
+import {sumarPuntos} from "../../../pods/Gamification";
 
 type FormProps = {
     mapas: MapType[];
@@ -40,8 +41,6 @@ function ModalFormAñadirLugar(props: FormProps): JSX.Element {
     const maps: string[] = [];
 
     props.mapas.forEach((mapa) => {
-        console.log(session.info.webId!)
-        console.log(mapa.owner)
         if (mapa.owner === session.info.webId!.split("profile")[0]) {
             maps.push(mapa.id)
         }
@@ -69,7 +68,7 @@ function ModalFormAñadirLugar(props: FormProps): JSX.Element {
     }
 
     async function getDirectionFromAPI(lat: number, lng: number) {
-        console.log(process.env.GOOGLE_API_KEY);
+        console.log(process.env.REACT_APP_GOOGLE_API_KEY);
         const response = await fetch(
             `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=` + process.env.REACT_APP_GOOGLE_API_KEY);
         console.log(lat);
@@ -114,8 +113,6 @@ function ModalFormAñadirLugar(props: FormProps): JSX.Element {
             date: new Date(),
             text: comentarioLugar
         }
-
-        console.log(comentario.date);
 
         let puntuacion = rating;
 
@@ -170,6 +167,12 @@ function ModalFormAñadirLugar(props: FormProps): JSX.Element {
         }else{
             await addMarker(props.newPlace!);
         }
+        let puntosGanados = 10;
+        puntosGanados += fotos!.length * 5;
+        if(comentario.text.trim() != "") {
+            puntosGanados += 10;
+        }
+        await sumarPuntos(session, webId!.split("/profile")[0] + "/public/map/level.info", puntosGanados);
     }
 
     return (

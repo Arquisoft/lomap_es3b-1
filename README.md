@@ -6,6 +6,21 @@
 
 <h1 align="center"><img src="https://uploads-ssl.webflow.com/5f293d335491de78b3044bf8/5f293d335491de66cb044d4d_map-new3.gif" width="1024" height="512"></h1>
 
+## ¿Qué es LOMAP?
+<p align="justify">
+LoMap es un sistema de desarrollo de software versátil y personalizable que permite a los ciudadanos crear mapas personalizados, almacenar información sobre lugares de interés y compartir experiencias con amigos. Su objetivo es facilitar la exploración de la ciudad y brindar a los usuarios una herramienta poderosa para descubrir nuevos lugares y establecimientos locales.
+</p>
+<p align="justify">
+Una característica destacada de LoMap es que pone el control de la información en manos de los usuarios. Cada usuario tiene su propio "pod" personal, un espacio de almacenamiento donde pueden guardar y gestionar la información relacionada con los lugares que han añadido. Esto se alinea con los principios del proyecto SOLID, garantizando la privacidad y propiedad de los datos por parte de los usuarios.
+</p>
+<p align="justify">
+Además de la capacidad de añadir lugares, los usuarios pueden asociar puntuaciones, comentarios, fotos y otros detalles relevantes a cada lugar. Esto no solo les permite realizar un seguimiento personalizado de sus experiencias, sino que también ayuda a otros usuarios a tomar decisiones informadas sobre los lugares que desean visitar.
+</p>
+<p align="justify">
+LoMap también incluye funciones de gestión de accesos, lo que significa que los usuarios pueden controlar quién tiene acceso a la información compartida en sus mapas. Pueden gestionar permisos para amigos y grupos de amigos, garantizando así la privacidad de sus datos.
+</p>
+
+
 
 ## Como iniciar la aplicación en local:
 <p align="justify">
