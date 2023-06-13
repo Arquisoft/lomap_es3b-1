@@ -1,5 +1,5 @@
 import React from 'react';
-import {fireEvent, render, screen} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import '@testing-library/jest-dom'
 import Perfil from "./perfil";
 
@@ -10,7 +10,7 @@ jest.mock("@inrupt/solid-ui-react", () => ({
         session: {
             info: {
                 webId: "https://uo282631.inrupt.net/profile/card#me",
-                isLoggedIn: false,
+                isLoggedIn: true,
             },
         },
     })
@@ -23,7 +23,7 @@ describe("perfil", () => {
         const boton = screen.getByText("Mapa");
         expect(boton).toBeInTheDocument();
     });
-    it('opens the webId link when the button is clicked', () => {
+    test('perfil 2', () => {
         window.open = jest.fn();
 
         render(<Perfil />);

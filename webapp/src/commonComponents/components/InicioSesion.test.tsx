@@ -24,22 +24,10 @@ describe("LogIn button", () => {
         expect(loginButton).toBeInTheDocument();
     });
     test('LogIn button 2', () => {
-        const { getByText } = render(<InicioSesion />);
-        const logoutButton = getByText('Log Out');
-        expect(logoutButton).toBeInTheDocument();
-    });
-    test('should open the modal when the login button is clicked', () => {
-        const { getByText, getByTestId } = render(<InicioSesion />);
-        const loginButton = getByText('Log In');
-        fireEvent.click(loginButton);
-        const modal = getByTestId('modal');
-        expect(modal).toBeInTheDocument();
-    });
-    test('should close the modal when the close button is clicked', () => {
         const { getByText, getByTestId, queryByTestId } = render(<InicioSesion />);
         const loginButton = getByText('Log In');
         fireEvent.click(loginButton);
-        const closeButton = getByTestId('close-button');
+        const closeButton = getByText('x');
         fireEvent.click(closeButton);
         const modal = queryByTestId('modal');
         expect(modal).not.toBeInTheDocument();

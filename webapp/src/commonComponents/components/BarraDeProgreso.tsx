@@ -13,7 +13,7 @@ export default function LinearDeterminate(props: progresoProps) {
     return (
         <Box sx={{ width: `${props.widthPercent}%`, marginRight: '1%', marginLeft: '1%'}}>
             <p>Nivel: {props.level}</p>
-            <Tooltip title={`${props.progress}/100`} placement="top">
+            <Tooltip id='tooltipProgreso' title={`${props.progress}/100`} placement="top">
                 <LinearProgress variant="determinate" value={props.progress} />
             </Tooltip>
         </Box>

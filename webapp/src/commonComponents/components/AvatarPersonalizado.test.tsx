@@ -33,7 +33,7 @@ describe('AvatarPersonalizado', () => {
         expect(smallAvatar).toHaveAttribute('src', levelIcon);
         expect(avatar).toHaveAttribute('src', './img/fondo5.png');
     });
-    test('should update the photo state with the fetched photo URL', async () => {
+    test('AvatarPersonalizado 3', async () => {
         const getProfilePhotoMock = getProfilePhoto as jest.MockedFunction<typeof getProfilePhoto>;
         const setPhotoMock = jest.fn();
         getProfilePhotoMock.mockResolvedValue('http://example.com/photo.jpg');

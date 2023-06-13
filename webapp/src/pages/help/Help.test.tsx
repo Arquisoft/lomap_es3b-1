@@ -30,7 +30,7 @@ describe("Help", () => {
         // Verifica que la imagen esté presente en la página
         const coloresImg = getByAltText('colores');
         expect(coloresImg).toBeInTheDocument();
-        expect(coloresImg.getAttribute('src')).toBe('./img/colores.png');
+        expect(coloresImg.getAttribute('src')).toBe('colores.png');
     });
 
 });

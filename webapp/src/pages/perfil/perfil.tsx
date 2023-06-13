@@ -8,7 +8,7 @@ import banner from './img/banner.png'
 import {IconButton} from "@mui/material";
 import ContactEmergencyIcon from '@mui/icons-material/ContactEmergency';
 import {useSession} from "@inrupt/solid-ui-react";
-import {getFriends, getFriendsToList} from "../../pods/Friends";
+import {getFriendsToList} from "../../pods/Friends";
 
 function Perfil(): JSX.Element {
 

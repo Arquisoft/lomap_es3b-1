@@ -21,7 +21,7 @@ type avatarProps = {
 }
 
 export default function BadgeAvatars(props: avatarProps) {
-    const [photo, setPhoto] = React.useState<string | undefined>(undefined);
+    const [photo, setPhoto] = React.useState<string>('./img/fondo5.png');
     let webId: string = props.src ?? "Valor predeterminado";
 
     getProfilePhoto(webId).then((photoUrl) => {

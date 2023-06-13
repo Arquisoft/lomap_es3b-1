@@ -33,7 +33,7 @@ function HelpPage(props: HelpProps): JSX.Element {
                             Cada 100 puntos subirás de nivel y se te asignará un nuevo color, visible en la parte
                             inferior de tu foto de perfi.
                         </p>
-                        <img src={colores}/>
+                        <img alt='colores' src={colores}/>
                     </div>
                 </div>
             </div>
