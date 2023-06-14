@@ -213,7 +213,7 @@ export async function guardarDatos(webId: string | undefined, props: FormProps, 
     }
     let puntosGanados = 10;
     puntosGanados += fotos!.length * 5;
-    if (comentario.text.trim() != "") {
+    if (comentario.text.trim() !== "") {
         puntosGanados += 10;
     }
     await sumarPuntos(session, webId!.split("/profile")[0] + "/public/map/level.info", puntosGanados);

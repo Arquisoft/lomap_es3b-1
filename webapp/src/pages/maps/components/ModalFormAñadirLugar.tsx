@@ -35,6 +35,7 @@ function ModalFormAñadirLugar(props: FormProps): JSX.Element {
         'Parking'
     ];
 
+
     const maps: string[] = [];
 
     props.mapas.forEach((mapa) => {

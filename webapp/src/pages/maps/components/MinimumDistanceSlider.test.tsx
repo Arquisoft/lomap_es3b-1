@@ -12,6 +12,7 @@ test('Render Icono App', () => {
     };
 
     render(<MinimumDistanceSlider {...props}/>);
+
     const sliderElement = screen.getByText("Distancia(Km):");
     expect(sliderElement).toBeInTheDocument();
 });
