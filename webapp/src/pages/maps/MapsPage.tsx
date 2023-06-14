@@ -92,11 +92,9 @@ function MapsPage(props: MapProps): JSX.Element {
 
             mapasTotales.push(mapBBDD);
         } catch (err) {
-            console.log("No se han podido sacar los lugares de la BBDD")
         }
 
         try {
-            console.log("Sacamos los amigos")
             //Sacamos a nuestros amigos
             let amigos = await getFriends(webId!).then((friendsPromise) => {
                 return friendsPromise;
@@ -107,7 +105,6 @@ function MapsPage(props: MapProps): JSX.Element {
             setFriends(amigos);
 
             try {
-                console.log("Sacamos los mapas de los amigos")
                 //Sacamos los mapas de los amigos
                 let mapasAmigos = await getFriendsMapsPOD(session, amigos);
 
@@ -121,12 +118,10 @@ function MapsPage(props: MapProps): JSX.Element {
                     }
                 });
             } catch (err) {
-                console.log("Error obteniendo mapas de los amigos")
             }
 
 
         } catch (err) {
-            console.log("Error obteniendo amigos")
         }
 
         //Establecemos los mapas
@@ -249,7 +244,6 @@ function MapsPage(props: MapProps): JSX.Element {
     };
 
     const handleAmigoChange = (selectedOption: string[]) => {
-        console.log(`Amigo seleccionado: ${selectedOption}`);
 
         let selectedFriends = friends.filter((amigo) => {
             return selectedOption.includes(amigo.name);
@@ -284,7 +278,6 @@ function MapsPage(props: MapProps): JSX.Element {
     };
 
     const handleMinDistanceChange = (selectedMinDistance: number, selectedMaxDistance: number) => {
-        console.log(`Distancia seleccionada: ${selectedMinDistance} y ${selectedMaxDistance}`);
         setMinDistance(selectedMinDistance);
         setMaxDistance(selectedMaxDistance);
     };

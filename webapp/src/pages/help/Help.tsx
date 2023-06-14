@@ -23,7 +23,7 @@ function HelpPage(props: HelpProps): JSX.Element {
                             Tan simple de usar como pulsar sobre el mapa donde quieras agregar un marcador y
                             rellenar el formulario sobre el lugar.
                         </p>
-                        <h3>Gamficación</h3>
+                        <h3>Gamificación</h3>
                         <p>
                             Cada vez que añadas un lugar a uno de tus mapas se te otorgarán 10 puntos a tu perfil,
                             en caso de que incluyas un comentario se añadirán otros 10 puntos, además de 5 puntos por
