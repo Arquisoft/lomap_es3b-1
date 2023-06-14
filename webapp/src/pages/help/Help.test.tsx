@@ -4,7 +4,6 @@ import '@testing-library/jest-dom'
 import HelpPage from "./Help";
 
 
-
 jest.mock("@inrupt/solid-ui-react", () => ({
     useSession: () => ({
         session: {
@@ -16,21 +15,18 @@ jest.mock("@inrupt/solid-ui-react", () => ({
     })
 }));
 
-describe("Help", () => {
-    test('Help 1', () => {
-        // Renderiza el componente
-        const { getByText, getByAltText } = render(<HelpPage />);
+test('Help 1', () => {
+    // Renderiza el componente
+    const {getByText, getByAltText} = render(<HelpPage/>);
 
-        // Verifica que el contenido esperado esté presente en la página
-        expect(getByText('Ayuda')).toBeInTheDocument();
-        expect(getByText('¡Bienvenido a LoMap, tu herramienta personalizada de mapas locales!')).toBeInTheDocument();
-        expect(getByText(/¿Cómo funciona\?/)).toBeInTheDocument();
-        expect(getByText(/Gamficación/)).toBeInTheDocument();
+    // Verifica que el contenido esperado esté presente en la página
+    expect(getByText('Ayuda')).toBeInTheDocument();
+    expect(getByText('¡Bienvenido a LoMap, tu herramienta personalizada de mapas locales!')).toBeInTheDocument();
+    expect(getByText(/¿Cómo funciona\?/)).toBeInTheDocument();
+    expect(getByText(/Gamficación/)).toBeInTheDocument();
 
-        // Verifica que la imagen esté presente en la página
-        const coloresImg = getByAltText('colores');
-        expect(coloresImg).toBeInTheDocument();
-        expect(coloresImg.getAttribute('src')).toBe('colores.png');
-    });
-
+    // Verifica que la imagen esté presente en la página
+    const coloresImg = getByAltText('colores');
+    expect(coloresImg).toBeInTheDocument();
+    expect(coloresImg.getAttribute('src')).toBe('colores.png');
 });

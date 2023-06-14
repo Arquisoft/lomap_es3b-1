@@ -58,7 +58,6 @@ function MapsPage(props: MapProps): JSX.Element {
         let mapasTotales: MapType[] = [];
         let placesTotales: PlacePOD[] = [];
 
-        //Sacamos nuestros mapas
         try {
             let mapasPropios: MapType[] = await getMapsPOD(session, webId!.split("/profile")[0] + "/public/map/");
 
@@ -69,7 +68,6 @@ function MapsPage(props: MapProps): JSX.Element {
                 }
             })
         } catch (err) {
-            console.log("O bien no hay mapas o ha habido un error");
         }
 
         //Sacamos los mapas de la base de datos
