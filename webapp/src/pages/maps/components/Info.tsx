@@ -36,14 +36,6 @@ function Info(props: InfoProps): JSX.Element{
         case TabEnum.Comentarios:
             contenido = ContenidoComentarios(num, setNum, props.place.place.comments);
             break;
-        //Contenido por defecto
-        default:
-            contenido = (
-                <>
-                    <p>Contenido por defecto</p>
-                </>
-            );
-            break;
     }
 
 

@@ -1,6 +1,4 @@
 import L from "leaflet";
-import { MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
-import { Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { PlacePOD } from '../../../shared/shareddtypes';
 import { useState } from "react";
@@ -9,6 +7,7 @@ import IconoMonumento from "../../../assets/icono-monumento.svg";
 import IconoBiblioteca from "../../../assets/icono-biblioteca.svg";
 import IconoParking from "../../../assets/icono-parking.svg";
 import IconoTienda from "../../../assets/icono-tienda.svg";
+import {MapContainer, Marker, TileLayer, useMap, useMapEvents} from "react-leaflet";
 
 
 type MapProps = {

@@ -10,25 +10,14 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import IconoApp from "../../pages/maps/components/IconoApp";
 import {LoginButton, LogoutButton, useSession} from "@inrupt/solid-ui-react";
 import {useState} from "react";
 import Modal from "./loginForm/Modal";
 import AvatarPersonalizado from './AvatarPersonalizado';
 import BarraDeProgreso from './BarraDeProgreso';
-import {eventEmitter, getExp, readFileFromPod} from "../../pods/Gamification";
+import {eventEmitter, getExp, imagenNivel, readFileFromPod} from "../../pods/Gamification";
 import {LevelType} from "../../shared/shareddtypes";
-import rojo from "../../pages/maps/components/img/rojo.png";
-import azul from "../../pages/maps/components/img/azul.png";
-import verde from "../../pages/maps/components/img/verde.png";
-import amarillo from "../../pages/maps/components/img/amarillo.png";
-import morado from "../../pages/maps/components/img/morado.png";
-import naranja from "../../pages/maps/components/img/naranja.png";
-import rosa from "../../pages/maps/components/img/rosa.png";
-import turquesa from "../../pages/maps/components/img/turquesa.png";
-import gris from "../../pages/maps/components/img/gris.png";
-import blanco from "../../pages/maps/components/img/blanco.png";
 import {Link} from "react-router-dom";
 
 const pages = ['Home', 'Help'];
@@ -65,56 +54,11 @@ function ResponsiveAppBar() {
             let nivel = Math.floor(parseInt(puntos) / 100) + 1
             setLevel(nivel);
             setPuntos(puntos);
-            imagenNivel(nivel);
+            let color = await imagenNivel(nivel);
+            setLevelIcon(color)
             setProgress(puntos - (level - 1) * 100)
         } catch (err) {
-            console.log("Error al cargar el nivel: " + err);
         }
-    }
-
-    const imagenNivel = (nivel: number | undefined) => {
-        let color: string;
-
-        switch (nivel) {
-            case 1:
-                color = rojo;
-                break;
-            case 2:
-                color = azul;
-                break;
-            case 3:
-                color = verde;
-                break;
-            case 4:
-                color = amarillo;
-                break;
-            case 5:
-                color = morado;
-                break;
-            case 6:
-                color = naranja;
-                break;
-            case 7:
-                color = rosa;
-                break;
-            case 8:
-                color = turquesa;
-                break;
-            case 9:
-                color = gris;
-                break;
-            case 10:
-                color = blanco;
-                break;
-            default:
-                if(nivel! > 10){
-                    color = blanco;
-                } else {
-                    color = rojo;
-                }
-                break;
-        }
-        setLevelIcon(color);
     }
 
     eventEmitter.on('puntosSumados', () => {

@@ -5,6 +5,7 @@ import Avatar from '@mui/material/Avatar';
 import {CombinedDataProvider, useThing} from "@inrupt/solid-ui-react";
 import {VCARD} from "@inrupt/lit-generated-vocab-common";
 import { getSolidDataset, getThingAll, getUrlAll } from "@inrupt/solid-client";
+import {getProfilePhoto} from "../../pods/Photo";
 
 const SmallAvatar = styled(Avatar)(({theme}) => ({
     width: 18,
@@ -12,12 +13,7 @@ const SmallAvatar = styled(Avatar)(({theme}) => ({
     border: `2px solid ${theme.palette.background.paper}`,
 }));
 
-async function getProfilePhoto(webId: string): Promise<string | undefined> {
-    const profileDataset = await getSolidDataset(webId);
-    const profileThings = getThingAll(profileDataset);
-    const photos = profileThings.flatMap((thing) => getUrlAll(thing, VCARD.hasPhoto));
-    return photos[0]; // Return the first photo URL if available
-}
+
 
 type avatarProps = {
     src?: string;
@@ -25,7 +21,7 @@ type avatarProps = {
 }
 
 export default function BadgeAvatars(props: avatarProps) {
-    const [photo, setPhoto] = React.useState<string | undefined>(undefined);
+    const [photo, setPhoto] = React.useState<string>('./img/fondo5.png');
     let webId: string = props.src ?? "Valor predeterminado";
 
     getProfilePhoto(webId).then((photoUrl) => {

@@ -6,11 +6,7 @@ import { useState } from "react";
 import Modal from './loginForm/Modal';
 import { LoginButton, LogoutButton } from "@inrupt/solid-ui-react";
 
-type inicioProps = {
-
-};
-
-function InicioSesion(props: inicioProps): JSX.Element {
+function InicioSesion(): JSX.Element {
 
     const { session } = useSession();
     const [showModal, setShowModal] = useState(false);

@@ -37,7 +37,6 @@ function Amigo({ name, webId }: AmigoProps): JSX.Element {
                 setAccess(false);
             }
         } catch {
-            console.log("O no existe la carpeta o no tiene permisos");
         }
     }
 
