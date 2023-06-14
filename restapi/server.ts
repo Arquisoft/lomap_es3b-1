@@ -26,7 +26,5 @@ app.use(bp.json());
 app.use("/api", api)
 
 https.createServer(options, app).listen(port, ():void => {
-    console.log('(HTTPS) Restapi listening on '+ port);
 }).on("error",(error:Error)=>{
-    console.error('Error occured: ' + error.message);
 });
