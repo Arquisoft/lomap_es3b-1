@@ -1,21 +1,7 @@
 import React from 'react';
-import {fireEvent, render, screen} from '@testing-library/react';
+import {fireEvent, render, screen, waitFor} from '@testing-library/react';
 import '@testing-library/jest-dom'
 import InicioSesion from './InicioSesion';
-
-
-
-// And in MyWrapper, you would override useSession with your mock:
-jest.mock("@inrupt/solid-ui-react", () => ({
-    useSession: () => ({
-        session: {
-            info: {
-                webId: "https://uo282631.inrupt.net/profile/card#me",
-                isLoggedIn: false,
-            },
-        },
-    })
-}));
 
 describe("LogIn button", () => {
     test('LogIn button 1', () => {
@@ -23,13 +9,23 @@ describe("LogIn button", () => {
         const loginButton = getByText('Log In');
         expect(loginButton).toBeInTheDocument();
     });
-    test('LogIn button 2', () => {
-        const { getByText, getByTestId, queryByTestId } = render(<InicioSesion />);
+    test('LogIn button 2', async () => {
+        const {getByText, getByTestId, queryByTestId} = render(<InicioSesion/>);
         const loginButton = getByText('Log In');
-        fireEvent.click(loginButton);
-        const closeButton = getByText('x');
-        fireEvent.click(closeButton);
-        const modal = queryByTestId('modal');
-        expect(modal).not.toBeInTheDocument();
+
+        // Simulamos el click en el botón de inicio de sesión
+        loginButton.click();
+
+        await waitFor(() => expect(getByText('×')).toBeInTheDocument());
+
+        const closeButton = getByText('×')
+
+        // Simulamos el click en el botón de cierre
+        closeButton.click();
+
+        // Verificamos que el modal ya no esté presente después de hacer click en el botón de cierre
+        const modalAfterClose = queryByTestId('modal');
+        expect(modalAfterClose).not.toBeInTheDocument();
     });
+
 });

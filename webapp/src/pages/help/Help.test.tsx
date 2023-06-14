@@ -23,7 +23,7 @@ test('Help 1', () => {
     expect(getByText('Ayuda')).toBeInTheDocument();
     expect(getByText('¡Bienvenido a LoMap, tu herramienta personalizada de mapas locales!')).toBeInTheDocument();
     expect(getByText(/¿Cómo funciona\?/)).toBeInTheDocument();
-    expect(getByText(/Gamficación/)).toBeInTheDocument();
+    expect(getByText(/Gamificación/)).toBeInTheDocument();
 
     // Verifica que la imagen esté presente en la página
     const coloresImg = getByAltText('colores');

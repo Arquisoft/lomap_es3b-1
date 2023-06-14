@@ -20,9 +20,6 @@ import {eventEmitter, getExp, imagenNivel, readFileFromPod} from "../../pods/Gam
 import {LevelType} from "../../shared/shareddtypes";
 import {Link} from "react-router-dom";
 
-const pages = ['Home', 'Help'];
-
-
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -37,6 +34,8 @@ function ResponsiveAppBar() {
 
     //De la session sacar el webId
     const {webId} = session.info;
+
+    const pages = ['Home', 'Help'];
 
     const getLevelAndProgress = async () => {
 
@@ -65,8 +64,6 @@ function ResponsiveAppBar() {
         getLevelAndProgress();
     });
 
-    getLevelAndProgress();
-
     function handleOpenModal() {
         setShowModal(true);
     }
@@ -89,6 +86,8 @@ function ResponsiveAppBar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    getLevelAndProgress();
 
     return (
         <div className="navigationmenu">

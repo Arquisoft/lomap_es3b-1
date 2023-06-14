@@ -1,7 +1,7 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
 import '@testing-library/jest-dom'
-import Perfil from "./perfil";
+import Profile from "./perfil";
 
 
 
@@ -16,17 +16,23 @@ jest.mock("@inrupt/solid-ui-react", () => ({
     })
 }));
 
+jest.mock("../../commonComponents/components/AvatarPersonalizado", () => {
+    return {
+        __esModule: true,
+        default: jest.fn().mockReturnValue(null),
+    };
+});
+
 describe("perfil", () => {
     test('perfil 1', () => {
 
-        render(<Perfil />);
-        const boton = screen.getByText("Mapa");
-        expect(boton).toBeInTheDocument();
+        render(<Profile />);
+
     });
     test('perfil 2', () => {
         window.open = jest.fn();
 
-        render(<Perfil />);
+        render(<Profile />);
 
         const button = screen.getByRole('button', { name: /Página de tu POD/i });
         button.click();

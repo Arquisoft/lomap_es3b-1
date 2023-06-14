@@ -5,7 +5,7 @@ import MapsPage from './pages/maps/MapsPage';
 import HelpPage from './pages/help/Help';
 import './App.css';
 import NavBar from "./commonComponents/components/NavBar";
-import Perfil from "./pages/perfil/perfil";
+import Profile from "./pages/perfil/perfil";
 
 
 
@@ -20,7 +20,7 @@ function App(): JSX.Element {
                         <Route path='/' element={<MapsPage/>}/>
                         <Route path='/map' element={<MapsPage/>}/>
                         <Route path='/help' element={<HelpPage/>}/>
-                        <Route path='/profile' element={<Perfil/>}/>
+                        <Route path='/profile' element={<Profile/>}/>
                     </Routes>
                 </Router>
             </SessionProvider>

@@ -1,6 +1,4 @@
 import "./perfil.css"
-import AvatarPersonalizado from '../../commonComponents/components/AvatarPersonalizado';
-import BarraDeProgreso from '../../commonComponents/components/BarraDeProgreso';
 import {useEffect, useState} from "react";
 import {getExp, imagenNivel, readFileFromPod} from "../../pods/Gamification";
 import {Friend, LevelType} from "../../shared/shareddtypes";
@@ -9,8 +7,10 @@ import {IconButton} from "@mui/material";
 import ContactEmergencyIcon from '@mui/icons-material/ContactEmergency';
 import {useSession} from "@inrupt/solid-ui-react";
 import {getFriendsToList} from "../../pods/Friends";
+import AvatarPersonalizado from "../../commonComponents/components/AvatarPersonalizado";
+import LinearDeterminate from "../../commonComponents/components/BarraDeProgreso";
 
-function Perfil(): JSX.Element {
+export default function Profile() {
 
     const [level, setLevel] = useState<number>(0);
     const [levelIcon, setLevelIcon] = useState<string>(`./components/img/rojo.png`);
@@ -66,7 +66,6 @@ function Perfil(): JSX.Element {
                     <div className="centroProfile">
                         <div style={{position: 'relative', display: 'inline-block', width: '500px', height: '300px'}}>
                             <img src={banner} alt="Banner" style={{objectFit: 'cover', width: '100%', height: '100%'}}/>
-
                             <div
                                 style={{
                                     position: 'absolute',
@@ -80,7 +79,7 @@ function Perfil(): JSX.Element {
                         <IconButton onClick={handleButtonClick}>
                             <ContactEmergencyIcon/>{("Página de tu POD")}
                         </IconButton>
-                        <BarraDeProgreso
+                        <LinearDeterminate
                             progress={progress}
                             level={level}
                             widthPercent={98}
@@ -118,4 +117,3 @@ function Perfil(): JSX.Element {
     );
 }
 
-export default Perfil;

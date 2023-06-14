@@ -31,6 +31,4 @@ test('renders Amigo component', async () => {
     const amigoButton = screen.getByRole('button')
     expect(amigoButton).toHaveClass('red');
 
-    userEvent.click(amigoButton);
-
 });

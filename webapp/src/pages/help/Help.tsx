@@ -1,9 +1,7 @@
 import colores from "./img/colores.png";
 import "./Help.css"
 
-type HelpProps = {};
-
-function HelpPage(props: HelpProps): JSX.Element {
+function HelpPage(): JSX.Element {
 
     return (
         <>
