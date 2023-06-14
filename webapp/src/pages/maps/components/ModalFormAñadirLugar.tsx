@@ -1,5 +1,5 @@
 import { Place, MapType, CommentType } from "../../../shared/shareddtypes";
-import {addMapPOD, guardarDatos} from "../../../pods/Markers";
+import {addMapPOD, getDirectionFromAPI, guardarDatos} from "../../../pods/Markers";
 import { useSession } from "@inrupt/solid-ui-react";
 import { useState } from "react";
 
@@ -22,8 +22,7 @@ function ModalFormAñadirLugar(props: FormProps): JSX.Element {
     const [rating, setRating] = useState(0);
     const [dir, setDir] = useState("");
     const [submitButton, setSubmitButton] = useState("POD");
-    getDirectionFromAPI(props.newPlace!.latitude, props.newPlace!.longitude).then((data) => { setDir(data) });
-
+    getDirectionFromAPI(props.newPlace!.latitude, props.newPlace!.longitude, setDir);
 
     let urlImagenes: string[] = [];
 
@@ -45,18 +44,6 @@ function ModalFormAñadirLugar(props: FormProps): JSX.Element {
             }
         }
     })
-
-    async function getDirectionFromAPI(lat: number, lng: number) {
-        const response = await fetch(
-            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=` + process.env.REACT_APP_GOOGLE_API_KEY);
-        const data = await response.json();
-        if (data.status === "OK") {
-            const address: string = data.results[0].formatted_address;
-            return address;
-        } else {
-            throw new Error(`Error al obtener la dirección. Status: ${data.status}`);
-        }
-    }
 
     return (
         <>
@@ -87,7 +74,6 @@ function ModalFormAñadirLugar(props: FormProps): JSX.Element {
                         id="categoria"
                     />
                 </label>
-
                 <label>Mapa:
                     <Combobox
                         placeholder="Nombre del mapa"

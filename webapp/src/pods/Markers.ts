@@ -218,3 +218,15 @@ export async function guardarDatos(webId: string | undefined, props: FormProps, 
     }
     await sumarPuntos(session, webId!.split("/profile")[0] + "/public/map/level.info", puntosGanados);
 }
+
+export async function getDirectionFromAPI(lat: number, lng: number, setDir:any) {
+    const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=` + process.env.REACT_APP_GOOGLE_API_KEY);
+    const data = await response.json();
+    if (data.status === "OK") {
+        const address: string = data.results[0].formatted_address;
+        setDir(address)
+    } else {
+        throw new Error(`Error al obtener la dirección. Status: ${data.status}`);
+    }
+}
