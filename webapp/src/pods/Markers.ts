@@ -5,6 +5,13 @@ import {CommentType, MapType, Place} from "../shared/shareddtypes";
 import {getProfileName} from "./Profile";
 import {addMarker} from "../api/api";
 import {sumarPuntos} from "./Gamification";
+import {Marker, useMap} from "react-leaflet";
+import L, {icon} from "leaflet";
+import IconoMonumento from "../assets/icono-monumento.svg";
+import IconoBiblioteca from "../assets/icono-biblioteca.svg";
+import IconoRestaurante from "../assets/icono-restaurante.svg";
+import IconoTienda from "../assets/icono-tienda.svg";
+import IconoParking from "../assets/icono-parking.svg";
 
 export async function addMapPOD(session: Session, name: string, file: File, url: string) {
     try {
@@ -229,4 +236,35 @@ export async function getDirectionFromAPI(lat: number, lng: number, setDir:any) 
     } else {
         throw new Error(`Error al obtener la dirección. Status: ${data.status}`);
     }
+}
+
+export function CustomMarkerIcon(propsM: any) {
+    let icono = undefined;
+
+    let imagen;
+
+    switch (propsM.marker.place.category) {
+        case "Monumento":
+            imagen = IconoMonumento
+            break;
+        case "Biblioteca":
+            imagen = IconoBiblioteca
+            break;
+        case "Restaurante":
+            imagen = IconoRestaurante
+            break;
+        case "Tienda":
+            imagen =  IconoTienda
+            break;
+        case "Parking":
+            imagen = IconoParking
+            break;
+    }
+    icono = new L.Icon({
+        iconUrl: imagen,
+        iconSize: new L.Point(40, 40),
+        iconAnchor: [20, 40],
+        className: 'leaflet-div-icon'
+    });
+    return icono;
 }
