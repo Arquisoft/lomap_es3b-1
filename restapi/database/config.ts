@@ -7,7 +7,7 @@ const clave:string = process.env.MONGODB ?? "mongodb+srv://lomap:12345@lomap-es3
 
 const client = new MongoClient(clave);
 
-var db: any;
+let db: any;
 
 export async function connectToDatabase() {
     try {
