@@ -1,5 +1,5 @@
-import { Place, MapType, CommentType } from "../../../shared/shareddtypes";
-import {addMapPOD, getDirectionFromAPI, guardarDatos} from "../../../pods/Markers";
+import { Place, MapType } from "../../../shared/shareddtypes";
+import { getDirectionFromAPI, guardarDatos} from "../../../pods/Markers";
 import { useSession } from "@inrupt/solid-ui-react";
 import { useState } from "react";
 
@@ -38,7 +38,7 @@ function ModalFormAñadirLugar(props: FormProps): JSX.Element {
     const maps: string[] = [];
 
     props.mapas.forEach((mapa) => {
-        if(session.info.webId != undefined){
+        if(session.info.webId !== undefined){
             if (mapa.owner === session.info.webId.split("profile")[0]) {
                 maps.push(mapa.id)
             }

@@ -1,9 +1,5 @@
 import { useState, useEffect } from "react";
 import { useSession } from "@inrupt/solid-ui-react";
-import {
-    getSolidDatasetWithAcl,
-    getAgentAccess
-} from "@inrupt/solid-client";
 import {changePermissions, getAmigoAccess} from "../../../pods/Friends";
 
 type AmigoProps = {

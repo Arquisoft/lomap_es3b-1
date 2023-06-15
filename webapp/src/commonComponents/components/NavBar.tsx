@@ -27,7 +27,6 @@ function ResponsiveAppBar() {
     const [level, setLevel] = useState<number>(0);
     const [levelIcon, setLevelIcon] = useState<string>(`./components/img/rojo.png`);
     const [progress, setProgress] = useState<number>(0);
-    const [puntos, setPuntos] = useState<number>(0);
 
     const {session} = useSession();
     const [showModal, setShowModal] = useState(false);
@@ -47,12 +46,11 @@ function ResponsiveAppBar() {
                     exp: 0
                 }
                 var blob = new Blob([JSON.stringify(levelT)], {type: "aplication/json"});
-                var file = new File([blob], "level" + ".info", {type: blob.type});
+                var file = new File([blob], "level.info", {type: blob.type});
                 puntos = await getExp(session, file, webId!.split("/profile")[0] + "/public/map/")
             }
             let nivel = Math.floor(parseInt(puntos) / 100) + 1
             setLevel(nivel);
-            setPuntos(puntos);
             let color = await imagenNivel(nivel);
             setLevelIcon(color)
             setProgress(puntos - (level - 1) * 100)

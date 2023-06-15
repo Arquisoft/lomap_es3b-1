@@ -4,17 +4,13 @@ import ModalFormAñadirLugar from "./components/ModalFormAñadirLugar"
 import Info from "./components/Info";
 import Mapa from "./components/Mapa";
 import './MapsPage.css';
-import {getMapsPOD} from '../../pods/Markers';
 import {PlacePOD, Place, MapType, Friend} from "../../shared/shareddtypes";
-import {getFriends, getFriendsMapsPOD} from '../../pods/Friends';
-import {getPlaces} from '../../api/api';
 import PanelIzquierdo from "./components/PanelIzquierdo";
-import {containsMap, filterByCategory, filterByDistance, filterByFriends, getMarkups} from "../../pods/Map";
+import {filterByCategory, filterByDistance, filterByFriends, getMarkups} from "../../pods/Map";
 
 
-type MapProps = {};
 
-function MapsPage(props: MapProps): JSX.Element {
+function MapsPage(): JSX.Element {
     const [filteredFriends, setFilteredFriends] = useState<Array<Friend>>([]);
     const [maps, setMaps] = useState<Array<MapType>>([]);
     const [selectedMarker, setSelectedMarker] = useState<PlacePOD>();
@@ -129,7 +125,7 @@ function MapsPage(props: MapProps): JSX.Element {
         let filteredMapPlaces: PlacePOD[] = [];
 
         filteredMaps.forEach((mapa) => {
-            if (mapa.map != undefined) {
+            if (mapa.map !== undefined) {
                 mapa.map.forEach((place) => filteredMapPlaces.push(place));
             }
         });
