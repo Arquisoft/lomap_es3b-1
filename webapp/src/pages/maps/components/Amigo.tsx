@@ -13,7 +13,7 @@ function Amigo({ name, webId }: AmigoProps): JSX.Element {
     const [access, setAccess] = useState(false);
 
     useEffect(() => {
-        getAmigoAccess(session,webId,setAccess);
+        getAmigoAccess(session,webId,setAccess).catch();
     },[session, webId]);
 
     return (
@@ -21,7 +21,7 @@ function Amigo({ name, webId }: AmigoProps): JSX.Element {
             <div className="amigo">
                 <p>{name}</p>
                 <button className={access ? "green" : "red"} onClick={async () => {
-                    await changePermissions(webId,session,access,setAccess);
+                    await changePermissions(webId,session,access,setAccess).catch();
                 }}></button>
             </div>
         </>

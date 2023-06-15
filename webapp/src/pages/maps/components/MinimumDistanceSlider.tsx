@@ -20,7 +20,7 @@ export default function MinimumDistanceSlider(props: MinimumDistanceSliderProps)
 
     // Función que se ejecuta cada vez que cambia el valor del slider
     const handleChange2 = async (event: any, newValue: number | number[], activeThumb: any) => {
-        handleChange2Aux(event, newValue, activeThumb, minDistance, setValue2,props);
+        handleChange2Aux(event, newValue, activeThumb, minDistance, setValue2,props).catch();
     };
 
     // Renderizar el slider

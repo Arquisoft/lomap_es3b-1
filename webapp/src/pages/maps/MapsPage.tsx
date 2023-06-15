@@ -9,7 +9,6 @@ import PanelIzquierdo from "./components/PanelIzquierdo";
 import {filterByCategory, filterByDistance, filterByFriends, getMarkups} from "../../pods/Map";
 
 
-
 function MapsPage(): JSX.Element {
     const [filteredFriends, setFilteredFriends] = useState<Array<Friend>>([]);
     const [maps, setMaps] = useState<Array<MapType>>([]);
@@ -35,7 +34,8 @@ function MapsPage(): JSX.Element {
     if (session.info.isLoggedIn && onlyOnce) {
         setOnlyOnce(false);
         getMarkups(setSelectedMarker, setNewPlace, setNewMarker, session, webId, setFilteredFriends, setFriends,
-            setMaps, setFilteredMaps, setFilteredPlaces, centro, minDistance, maxDistance, filteredFriends, categorias);
+            setMaps, setFilteredMaps, setFilteredPlaces, centro, minDistance, maxDistance, filteredFriends, categorias)
+            .catch();
     }
 
     session.onLogout(() => {
@@ -95,11 +95,11 @@ function MapsPage(): JSX.Element {
     };
 
     const handleMapaChange = (selectedOption: string[]) => {
-        var nombres = new Array<string>();
-        var nombrePropietario = new Array<string>();
+        let nombres = new Array<string>();
+        let nombrePropietario = new Array<string>();
 
         selectedOption.forEach(mapa => {
-            var nomrbes = mapa.split("-")
+            let nomrbes = mapa.split("-")
             nombres.push(nomrbes[0]);
             nombrePropietario.push(nomrbes[1]);
         });
@@ -178,7 +178,7 @@ function MapsPage(): JSX.Element {
                                             </button>
                                             <ModalFormAñadirLugar newPlace={newPlace} rechargeMarkers={() => {
                                                 getMarkups(setSelectedMarker, setNewPlace, setNewMarker, session, webId, setFilteredFriends, setFriends,
-                                                    setMaps, setFilteredMaps, setFilteredPlaces, centro, minDistance, maxDistance, filteredFriends, categorias);
+                                                    setMaps, setFilteredMaps, setFilteredPlaces, centro, minDistance, maxDistance, filteredFriends, categorias).catch();
                                             }} mapas={maps!}/>
                                         </div>
                                     </div> : <></>}

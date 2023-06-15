@@ -22,7 +22,7 @@ function ModalFormAñadirLugar(props: FormProps): JSX.Element {
     const [rating, setRating] = useState(0);
     const [dir, setDir] = useState("");
     const [submitButton, setSubmitButton] = useState("POD");
-    getDirectionFromAPI(props.newPlace!.latitude, props.newPlace!.longitude, setDir);
+    getDirectionFromAPI(props.newPlace!.latitude, props.newPlace!.longitude, setDir).catch();
 
     let urlImagenes: string[] = [];
 
