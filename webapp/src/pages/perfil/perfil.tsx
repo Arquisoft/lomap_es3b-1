@@ -53,7 +53,7 @@ export default function Profile() {
         getFriendsToList(session).then((amigos) => {
             setFriends(amigos);
         });
-    }, []);
+    }, [session]);
 
     getLevelAndProgress();
 

@@ -14,7 +14,7 @@ function Amigo({ name, webId }: AmigoProps): JSX.Element {
 
     useEffect(() => {
         getAmigoAccess(session,webId,setAccess);
-    });
+    },[session, webId]);
 
     return (
         <>
