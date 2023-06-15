@@ -1,7 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
-import {CalculateValue} from "../../../pods/SliderCalculator";
+import {handleChange2Aux} from "../../../pods/SliderFunction";
 
 // Valor mínimo de distancia entre los dos puntos del slider
 const minDistance = 1;
@@ -20,16 +20,7 @@ export default function MinimumDistanceSlider(props: MinimumDistanceSliderProps)
 
     // Función que se ejecuta cada vez que cambia el valor del slider
     const handleChange2 = async (event: any, newValue: number | number[], activeThumb: any) => {
-        let valor = CalculateValue(newValue, activeThumb, minDistance);
-        if (!Array.isArray(newValue)) {
-            return;
-        }
-        if (!Array.isArray(valor)) {
-            return;
-        }
-        setValue2(valor)
-        // Llamamos a la función onChange del componente Filters y le pasamos el valor del primer punto del slider
-        props.onChange(newValue[0], newValue[1]);
+        handleChange2Aux(event, newValue, activeThumb, minDistance, setValue2,props);
     };
 
     // Renderizar el slider

@@ -1,5 +1,7 @@
-import {render, fireEvent, screen} from '@testing-library/react';
+import {render, fireEvent, screen, waitFor} from '@testing-library/react';
 import ModalFormAñadirLugar from './ModalFormAñadirLugar';
+import {getDirectionFromAPI} from "../../../pods/Markers";
+
 
 
 test('should render and handle form submission', async () => {
@@ -47,5 +49,4 @@ test('should render and handle form submission', async () => {
     let botonAñadir = screen.getByText('Añadir POD');
 
     expect(botonAñadir).toBeInTheDocument();
-
 });

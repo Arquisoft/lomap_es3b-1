@@ -1,13 +1,11 @@
 import {Session} from "@inrupt/solid-client-authn-browser";
 import {
     createContainerAt,
-    getContentType,
-    getFile, getSolidDataset,
-    getSourceUrl, getThingAll, getUrlAll,
-    isRawData, overwriteFile,
+    getFile,
+    overwriteFile,
     saveFileInContainer
 } from "@inrupt/solid-client";
-import {LevelType, MapType} from "../shared/shareddtypes";
+import {LevelType} from "../shared/shareddtypes";
 import {EventEmitter} from 'events';
 import rojo from "../pages/maps/components/img/rojo.png";
 import azul from "../pages/maps/components/img/azul.png";
@@ -90,7 +88,7 @@ export async function sumarPuntos(session: Session, url: string, puntos: number)
             exp: total
         }
         var blob = new Blob([JSON.stringify(level)], {type: "aplication/json"});
-        var file = new File([blob], "level" + ".info", {type: blob.type});
+        var file = new File([blob], "level.info", {type: blob.type});
         await overwriteFile(url, file, {
             contentType: file.type,
             fetch: session.fetch

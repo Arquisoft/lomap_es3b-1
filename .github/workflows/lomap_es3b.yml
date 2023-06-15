@@ -4,9 +4,9 @@ on:
   release:
     types: [published]
   push:
-    branches: [master,develop]
+    branches: [master,develop,LuisManuel_UO282631]
   pull_request:
-    branches: [master,develop]
+    branches: [master,develop,LuisManuel_UO282631]
 
 env:
   REACT_APP_GOOGLE_API_KEY: ${{secrets.REACT_APP_GOOGLE_API_KEY}}

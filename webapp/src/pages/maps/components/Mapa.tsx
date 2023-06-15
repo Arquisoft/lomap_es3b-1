@@ -1,13 +1,9 @@
 import L from "leaflet";
 import 'leaflet/dist/leaflet.css';
-import { PlacePOD } from '../../../shared/shareddtypes';
-import { useState } from "react";
-import IconoRestaurante from "../../../assets/icono-restaurante.svg";
-import IconoMonumento from "../../../assets/icono-monumento.svg";
-import IconoBiblioteca from "../../../assets/icono-biblioteca.svg";
-import IconoParking from "../../../assets/icono-parking.svg";
-import IconoTienda from "../../../assets/icono-tienda.svg";
+import {PlacePOD} from '../../../shared/shareddtypes';
+import {useState} from "react";
 import {MapContainer, Marker, TileLayer, useMap, useMapEvents} from "react-leaflet";
+import {CustomMarkerIcon} from "../../../pods/Markers";
 
 
 type MapProps = {
@@ -50,77 +46,6 @@ function Mapa(props: MapProps): JSX.Element {
         marker: PlacePOD
     }
 
-
-
-    const CustomMarker = function (propsM: markerProps) {
-        const map = useMap()
-
-        let icono = undefined;
-
-        switch (propsM.marker.place.category) {
-            case "Monumento":
-                icono = new L.Icon({
-                    iconUrl: IconoMonumento,
-                    iconSize: new L.Point(40, 40),
-                    iconAnchor: [20, 40],
-                    className: 'leaflet-div-icon'
-                });
-                break;
-            case "Biblioteca":
-                icono = new L.Icon({
-                    iconUrl: IconoBiblioteca,
-                    iconSize: new L.Point(40, 40),
-                    iconAnchor: [20, 40],
-                    className: 'leaflet-div-icon'
-                });
-                break;
-            case "Restaurante":
-                icono = new L.Icon({
-                    iconUrl: IconoRestaurante,
-                    iconSize: new L.Point(40, 40),
-                    iconAnchor: [20, 40],
-                    className: 'leaflet-div-icon'
-                });
-                break;
-            case "Tienda":
-                icono = new L.Icon({
-                    iconUrl: IconoTienda,
-                    iconSize: new L.Point(40, 40),
-                    iconAnchor: [20, 40],
-                    className: 'leaflet-div-icon'
-                });
-                break;
-            case "Parking":
-                icono = new L.Icon({
-                    iconUrl: IconoParking,
-                    iconSize: new L.Point(40, 40),
-                    iconAnchor: [20, 40],
-                    className: 'leaflet-div-icon'
-                });
-                break;
-            default:
-                icono = icon;
-                break;
-        }
-
-        return (<Marker
-            key={propsM.marker.place.name}
-            position={[propsM.marker.place.latitude, propsM.marker.place.longitude]}
-            icon={icono}
-            eventHandlers={{
-                click: (e) => {
-                    map.flyTo([propsM.marker.place.latitude, propsM.marker.place.longitude], 14, {
-                        animate: true,
-                        duration: 1
-                    });
-                    props.funcSelectedMarker(propsM.marker);
-                },
-            }}
-        >
-        </Marker>
-        );
-    }
-
     const HideShowLayers = () => {
         const map = useMap();
 
@@ -135,6 +60,29 @@ function Mapa(props: MapProps): JSX.Element {
         return null;
     }
 
+    const CustomMarker = function (propsM: markerProps) {
+        const map = useMap()
+
+        let icono = CustomMarkerIcon(propsM);
+
+        return (<Marker
+                key={propsM.marker.place.name}
+                position={[propsM.marker.place.latitude, propsM.marker.place.longitude]}
+                icon={icono}
+                eventHandlers={{
+                    click: (e) => {
+                        map.flyTo([propsM.marker.place.latitude, propsM.marker.place.longitude], 14, {
+                            animate: true,
+                            duration: 1
+                        });
+                        props.funcSelectedMarker(propsM.marker);
+                    },
+                }}
+            >
+            </Marker>
+        );
+    }
+
     return (
         <>
             <div className="map">
@@ -143,10 +91,10 @@ function Mapa(props: MapProps): JSX.Element {
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    <MapContent />
+                    <MapContent/>
                     {Array.isArray(props.markers) && showMarkers ? props.markers.map((marker) =>
-                        <CustomMarker key={marker.id} marker={marker} />) : <></>}
-                    <HideShowLayers />
+                        <CustomMarker key={marker.id} marker={marker}/>) : <></>}
+                    <HideShowLayers/>
 
                 </MapContainer>
             </div>
