@@ -46,7 +46,7 @@ test('should render and handle form submission', async () => {
         })
     );
 
-    let botonAñadir = screen.getByText('Añadir POD');
+    let botonAñadir = screen.getByText('Crear marcador');
 
     expect(botonAñadir).toBeInTheDocument();
 });
