@@ -46,7 +46,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --coverage --transformIgnorePatterns \"node_modules/(?!react-leaflet)/\" --transform \"^.+\\.jsx?$\": \"babel-jest\"",
+    "test": "react-scripts test --coverage",
     "test:e2e": "",
     "eject": "react-scripts eject",
     "prod": "ts-node-dev ./server.ts"
