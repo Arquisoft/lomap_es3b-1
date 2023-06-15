@@ -1,0 +1,27 @@
+.profilePage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: hidden;
+}
+
+.contenidoProfile {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 800px;
+    text-align: center;
+    margin: 0 auto;
+    overflow-y: auto;
+    max-height: calc(100vh - 64px); /* Ajusta el valor según el tamaño de la barra de navegación */
+
+}
+
+.centroProfile {
+    margin: 0 auto;
+}
+
+.friends>  ul, li {
+    background-color: #f2f2f2;
+}

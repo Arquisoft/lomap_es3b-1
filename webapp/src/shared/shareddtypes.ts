@@ -20,6 +20,10 @@ export type PlacePOD = {
     place: Place;
 }
 
+export type LevelType = {
+    exp: number;
+}
+
 export type MapType = {
     id: string;
     owner: string;
