@@ -24,14 +24,14 @@ export default function Profile() {
 
     const getLevelAndProgress = async () => {
         try {
-            var puntos = await readFileFromPod(webId!.split("/profile")[0] + "/public/map/level.info",
+            let puntos = await readFileFromPod(webId!.split("/profile")[0] + "/public/map/level.info",
                 session);
             if (puntos === undefined) {
                 let levelT: LevelType = {
                     exp: 0
                 }
-                var blob = new Blob([JSON.stringify(levelT)], {type: "aplication/json"});
-                var file = new File([blob], "level.info", {type: blob.type});
+                let blob = new Blob([JSON.stringify(levelT)], {type: "aplication/json"});
+                let file = new File([blob], "level.info", {type: blob.type});
 
                 puntos = await getExp(session, file, webId!.split("/profile")[0] + "/public/map/")
             }
@@ -52,10 +52,10 @@ export default function Profile() {
     useEffect(() => {
         getFriendsToList(session).then((amigos) => {
             setFriends(amigos);
-        });
+        }).catch();
     }, [session]);
 
-    getLevelAndProgress();
+    getLevelAndProgress().catch();
 
     return (
         <>
