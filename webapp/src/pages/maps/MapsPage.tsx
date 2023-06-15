@@ -9,6 +9,7 @@ import {PlacePOD, Place, MapType, Friend} from "../../shared/shareddtypes";
 import {getFriends, getFriendsMapsPOD} from '../../pods/Friends';
 import {getPlaces} from '../../api/api';
 import PanelIzquierdo from "./components/PanelIzquierdo";
+import {containsMap, filterByCategory, filterByDistance, filterByFriends, getMarkups} from "../../pods/Map";
 
 
 type MapProps = {};
@@ -33,108 +34,12 @@ function MapsPage(props: MapProps): JSX.Element {
     //De la session sacar el webId
     const {webId} = session.info;
 
-    const containsMap = (MapsList: MapType[], mapa: MapType) => {
-
-        if (MapsList === undefined || MapsList === null || MapsList.length === 0) {
-            return 0;
-        }
-
-        for (let i = 0; i < MapsList.length; i++) {
-            if (MapsList[i].id === mapa.id && MapsList[i].owner === mapa.owner) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    const getMarkups = async () => {
-
-        //Asignar a un array el resultado de llamar a getMarkersPOD()
-
-        setSelectedMarker(undefined);
-        setNewPlace(undefined);
-        setNewMarker(undefined);
-
-        let mapasTotales: MapType[] = [];
-        let placesTotales: PlacePOD[] = [];
-
-        try {
-            let mapasPropios: MapType[] = await getMapsPOD(session, webId!.split("/profile")[0] + "/public/map/");
-
-            mapasPropios.forEach((mapa) => {
-                if (!containsMap(mapasTotales, mapa)) {
-                    mapasTotales.push(mapa);
-                    mapa.map.forEach((place) => placesTotales.push(place));
-                }
-            })
-        } catch (err) {
-        }
-
-        //Sacamos los mapas de la base de datos
-        try {
-            let placesBBDD = await getPlaces();
-            let mapBBDD: MapType = {
-                id: "MapaBBDD",
-                owner: "BBDD",
-                map: [],
-                ownerName: "BBDD"
-            };
-
-            placesBBDD.forEach(element => {
-                let place: PlacePOD = {
-                    id: crypto.randomUUID(),
-                    owner: "BBDD",
-                    place: element
-                }
-                placesTotales.push(place);
-                mapBBDD.map.push(place);
-            });
-
-            mapasTotales.push(mapBBDD);
-        } catch (err) {
-        }
-
-        try {
-            //Sacamos a nuestros amigos
-            let amigos = await getFriends(webId!).then((friendsPromise) => {
-                return friendsPromise;
-            });
-
-            //Establecemos los amigos
-            setFilteredFriends([]);
-            setFriends(amigos);
-
-            try {
-                //Sacamos los mapas de los amigos
-                let mapasAmigos = await getFriendsMapsPOD(session, amigos);
-
-                mapasAmigos.forEach((mapa) => {
-                    if (!containsMap(mapasTotales, mapa)) {
-                        mapasTotales.push(mapa);
-
-                        mapa.map.forEach((place) => {
-                            placesTotales.push(place);
-                        })
-                    }
-                });
-            } catch (err) {
-            }
-
-
-        } catch (err) {
-        }
-
-        //Establecemos los mapas
-        setMaps(mapasTotales);
-        setFilteredMaps(mapasTotales);
-
-        //Establecemos los lugares
-        setFilteredPlaces(filterByDistance(centro, minDistance, maxDistance, filterByFriends(filterByCategory(placesTotales))));
-    }
+    const centro: [number, number] = [43.35485, -5.85123]
 
     if (session.info.isLoggedIn && onlyOnce) {
         setOnlyOnce(false);
-        getMarkups();
+        getMarkups(setSelectedMarker, setNewPlace, setNewMarker, session, webId, setFilteredFriends, setFriends,
+            setMaps, setFilteredMaps, setFilteredPlaces, centro, minDistance, maxDistance, filteredFriends, categorias);
     }
 
     session.onLogout(() => {
@@ -142,69 +47,6 @@ function MapsPage(props: MapProps): JSX.Element {
         setFriends([]);
         setFilteredPlaces([]);
     })
-
-    const centro: [number, number] = [43.35485, -5.85123]
-
-    const filterByCategory = (places: PlacePOD[]) => {
-        if (places !== undefined && places !== null) {
-            if (categorias.length === 0) {
-                return places;
-            } else {
-                return places.filter((place) => {
-                    const categoryMatch = categorias.includes(place.place.category);
-                    return categoryMatch;
-                });
-            }
-        } else {
-            return [];
-        }
-    }
-
-    function filterByFriends(places: PlacePOD[]): PlacePOD[] {
-        if (places !== undefined && places !== null) {
-            if (filteredFriends.length === 0) {
-                return places;
-            } else {
-                return places.filter((place) => {
-                    for (let i = 0; i < filteredFriends.length; i++) {
-                        if (filteredFriends[i].webId === place.owner) {
-                            return true;
-                        }
-                    }
-                    return false;
-                });
-            }
-        } else {
-            return [];
-        }
-    }
-
-    function filterByDistance(center: [number, number], radiusInner: number, radiusOuter: number, places: PlacePOD[]): PlacePOD[] {
-        const [centerLat, centerLng] = center;
-        const result = places.filter(place => {
-            const {latitude, longitude} = place.place;
-            const distance = calculateDistance(centerLat, centerLng, latitude, longitude);
-            return distance >= radiusInner && distance <= radiusOuter;
-        });
-        return result;
-    }
-
-    function calculateDistance(lat1: number, lng1: number, lat2: number, lng2: number): number {
-        const R = 6371; // Radio de la tierra en kilómetros
-        const dLat = toRadians(lat2 - lat1);
-        const dLng = toRadians(lng2 - lng1);
-        const a =
-            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
-            Math.sin(dLng / 2) * Math.sin(dLng / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        const d = R * c; // Distancia en kilómetros
-        return d;
-    }
-
-    function toRadians(degrees: number): number {
-        return degrees * Math.PI / 180;
-    }
 
     function handleMarkerOnClick(p: PlacePOD): void {
         setNewMarker(undefined);
@@ -287,12 +129,12 @@ function MapsPage(props: MapProps): JSX.Element {
         let filteredMapPlaces: PlacePOD[] = [];
 
         filteredMaps.forEach((mapa) => {
-            if (mapa.map != undefined){
+            if (mapa.map != undefined) {
                 mapa.map.forEach((place) => filteredMapPlaces.push(place));
             }
         });
 
-        setFilteredPlaces(filterByDistance(centro, minDistance, maxDistance, filterByFriends(filterByCategory(filteredMapPlaces))));
+        setFilteredPlaces(filterByDistance(centro, minDistance, maxDistance, filterByFriends(filterByCategory(filteredMapPlaces, categorias), filteredFriends)));
     };
 
     return (
@@ -339,7 +181,8 @@ function MapsPage(props: MapProps): JSX.Element {
                                                 <span>&times;</span>
                                             </button>
                                             <ModalFormAñadirLugar newPlace={newPlace} rechargeMarkers={() => {
-                                                getMarkups();
+                                                getMarkups(setSelectedMarker, setNewPlace, setNewMarker, session, webId, setFilteredFriends, setFriends,
+                                                    setMaps, setFilteredMaps, setFilteredPlaces, centro, minDistance, maxDistance, filteredFriends, categorias);
                                             }} mapas={maps!}/>
                                         </div>
                                     </div> : <></>}
