@@ -19,8 +19,11 @@ export default function MinimumDistanceSlider(props: MinimumDistanceSliderProps)
     const [value2, setValue2] = React.useState([0, 30]);
 
     // Función que se ejecuta cada vez que cambia el valor del slider
-    const handleChange2 = async (event: any, newValue: number | number[], activeThumb: any) => {
-        handleChange2Aux(event, newValue, activeThumb, minDistance, setValue2,props).catch();
+    const handleChange2 = async (event: any, newValue: number | number[], activeThumb: any): Promise<void> => {
+        await handleChange2Aux(event, newValue, activeThumb, minDistance, setValue2, props)
+            .catch((error: Error) => {
+                // Manejar el error aquí si es necesario
+            });
     };
 
     // Renderizar el slider
