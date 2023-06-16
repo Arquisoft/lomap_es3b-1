@@ -48,15 +48,13 @@ jobs:
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@v5
       env:
-        API_URI: https://${{ secrets.DEPLOY_HOST }}:5000/api
         REACT_APP_GOOGLE_API_KEY: ${{secrets.REACT_APP_GOOGLE_API_KEY}}
       with:
-          name: arquisoft/lomap_es3b/webapp
+          name: arquisoft/lomap_es3b-1/webapp
           username: ${{ github.actor }}
           password: ${{ secrets.DOCKER_PUSH_TOKEN }}
           registry: ghcr.io
           workdir: webapp
-          buildargs: API_URI
   deploy:
     name: Deploy over SSH
     runs-on: ubuntu-latest
