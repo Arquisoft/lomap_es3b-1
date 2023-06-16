@@ -24,7 +24,7 @@ export default function Profile() {
 
     const getLevelAndProgress = async () => {
         try {
-            let puntos = await readFileFromPod(webId!.split("/profile")[0] + "/public/map/level.info",
+            let puntos = await readFileFromPod(webId!.split("/profile")[0] + "/public/level.info",
                 session);
             if (puntos === undefined) {
                 let levelT: LevelType = {
@@ -33,7 +33,7 @@ export default function Profile() {
                 let blob = new Blob([JSON.stringify(levelT)], {type: "aplication/json"});
                 let file = new File([blob], "level.info", {type: blob.type});
 
-                puntos = await getExp(session, file, webId!.split("/profile")[0] + "/public/map/")
+                puntos = await getExp(session, file, webId!.split("/profile")[0] + "/public/")
             }
             let nivel = Math.floor(parseInt(puntos) / 100) + 1
             setLevel(nivel);

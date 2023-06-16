@@ -39,7 +39,7 @@ function ResponsiveAppBar() {
     const getLevelAndProgress = async () => {
 
         try {
-            var puntos = await readFileFromPod(webId!.split("/profile")[0] + "/public/map/level.info",
+            var puntos = await readFileFromPod(webId!.split("/profile")[0] + "/public/level.info",
                 session);
             if (puntos === undefined) {
                 let levelT: LevelType = {
@@ -47,7 +47,7 @@ function ResponsiveAppBar() {
                 }
                 var blob = new Blob([JSON.stringify(levelT)], {type: "aplication/json"});
                 var file = new File([blob], "level.info", {type: blob.type});
-                puntos = await getExp(session, file, webId!.split("/profile")[0] + "/public/map/")
+                puntos = await getExp(session, file, webId!.split("/profile")[0] + "/public/")
             }
             let nivel = Math.floor(parseInt(puntos) / 100) + 1
             setLevel(nivel);

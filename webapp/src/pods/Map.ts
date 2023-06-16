@@ -1,6 +1,5 @@
 import {MapType, PlacePOD} from "../shared/shareddtypes";
 import {getMapsPOD} from "./Markers";
-import {getPlaces} from "../api/api";
 import {getFriends, getFriendsMapsPOD} from "./Friends";
 
 export function containsMap(MapsList: MapType[], mapa: MapType) {
@@ -20,10 +19,9 @@ export function containsMap(MapsList: MapType[], mapa: MapType) {
 export async function getMarkups(setSelectedMarker: any, setNewPlace: any, setNewMarker: any, session: any, webId: any,
                                  setFilteredFriends: any, setFriends: any, setMaps: any, setFilteredMaps: any,
                                  setFilteredPlaces: any, centro: any, minDistance: any, maxDistance: any,
-                                 filteredFriends: any, categorias:any) {
+                                 filteredFriends: any, categorias: any) {
 
     //Asignar a un array el resultado de llamar a getMarkersPOD()
-
     setSelectedMarker(undefined);
     setNewPlace(undefined);
     setNewMarker(undefined);
@@ -40,30 +38,6 @@ export async function getMarkups(setSelectedMarker: any, setNewPlace: any, setNe
                 mapa.map.forEach((place) => placesTotales.push(place));
             }
         })
-    } catch (err) {
-    }
-
-    //Sacamos los mapas de la base de datos
-    try {
-        let placesBBDD = await getPlaces();
-        let mapBBDD: MapType = {
-            id: "MapaBBDD",
-            owner: "BBDD",
-            map: [],
-            ownerName: "BBDD"
-        };
-
-        placesBBDD.forEach(element => {
-            let place: PlacePOD = {
-                id: crypto.randomUUID(),
-                owner: "BBDD",
-                place: element
-            }
-            placesTotales.push(place);
-            mapBBDD.map.push(place);
-        });
-
-        mapasTotales.push(mapBBDD);
     } catch (err) {
     }
 
@@ -102,7 +76,7 @@ export async function getMarkups(setSelectedMarker: any, setNewPlace: any, setNe
     setFilteredMaps(mapasTotales);
 
     //Establecemos los lugares
-    setFilteredPlaces(filterByDistance(centro, minDistance, maxDistance, filterByFriends(filterByCategory(placesTotales,categorias), filteredFriends)));
+    setFilteredPlaces(filterByDistance(centro, minDistance, maxDistance, filterByFriends(filterByCategory(placesTotales, categorias), filteredFriends)));
 }
 
 export function filterByDistance(center: [number, number], radiusInner: number, radiusOuter: number, places: PlacePOD[]): PlacePOD[] {
@@ -151,7 +125,7 @@ export function filterByFriends(places: PlacePOD[], filteredFriends: any): Place
     }
 }
 
-export function filterByCategory(places: PlacePOD[], categorias:any) {
+export function filterByCategory(places: PlacePOD[], categorias: any) {
     if (places !== undefined && places !== null) {
         if (categorias.length === 0) {
             return places;

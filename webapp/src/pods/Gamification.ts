@@ -19,10 +19,7 @@ import gris from "../pages/maps/components/img/gris.png";
 import blanco from "../pages/maps/components/img/blanco.png";
 
 export async function getExp(session: Session, file: File, url: string) {
-    console.log("getExp")
     try {
-
-
         //Comprobamos si existe la carpeta de mapas en el POD
         const fet = session.fetch;
         try {
