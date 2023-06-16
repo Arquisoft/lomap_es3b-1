@@ -3,7 +3,6 @@ import {createContainerAt, saveFileInContainer} from "@inrupt/solid-client";
 import {getFile, isRawData, getContentType, getSourceUrl} from "@inrupt/solid-client";
 import {CommentType, MapType, Place} from "../shared/shareddtypes";
 import {getProfileName} from "./Profile";
-import {addMarker} from "../api/api";
 import {sumarPuntos} from "./Gamification";
 import L from "leaflet";
 import IconoMonumento from "../assets/icono-monumento.svg";
