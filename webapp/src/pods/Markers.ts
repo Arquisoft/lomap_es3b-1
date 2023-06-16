@@ -217,7 +217,7 @@ export async function guardarDatos(webId: string | undefined, props: FormProps, 
     if (comentario.text.trim() !== "") {
         puntosGanados += 10;
     }
-    await sumarPuntos(session, webId!.split("/profile")[0] + "/public/map/level.info", puntosGanados);
+    await sumarPuntos(session, webId!.split("/profile")[0] + "/public/level.info", puntosGanados);
 }
 
 export async function getDirectionFromAPI(lat: number, lng: number, setDir: any) {
