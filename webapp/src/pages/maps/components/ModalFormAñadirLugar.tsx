@@ -52,7 +52,6 @@ function ModalFormAñadirLugar(props: FormProps): JSX.Element {
                 await guardarDatos(webId, props, rating, urlImagenes, submitButton, session);
                 props.rechargeMarkers();
             }}>
-
                 <StarRatings
                     rating={rating}
                     name="rating"
@@ -86,7 +85,6 @@ function ModalFormAñadirLugar(props: FormProps): JSX.Element {
 
                 <label>Fotos:<input type="file" id="fotos" accept="image/png, image/jpeg, image/jpg" multiple></input></label>
                 <button id="guardarPOD" className="submit btn btn-primary" name="submitPOD" type="submit" onClick={() => setSubmitButton("POD")}> Crear marcador</button>
-                <button id="guardarBBDD" className="submit btn btn-primary" name="submitBBDD" type="submit" onClick={() => setSubmitButton("BBDD")}> Crear marcador público</button>
             </form>
 
         </>

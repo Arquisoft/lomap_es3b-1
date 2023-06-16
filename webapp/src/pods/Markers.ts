@@ -200,23 +200,19 @@ export async function guardarDatos(webId: string | undefined, props: FormProps, 
         }
     }
 
-    if (submitButton === "POD") {
+    var mapa = props.mapas.find((m) => m.id === mapaSelected && m.owner === webId?.split("profile")[0]);
 
-        var mapa = props.mapas.find((m) => m.id === mapaSelected && m.owner === webId?.split("profile")[0]);
-
-        if (mapa !== undefined && mapa !== null) {
-            await guardarEnPOD(props.newPlace!, mapa, mapaSelected, webId, session);
-        } else {
-            var x = await getProfileName(webId!);
-            if (mapaSelected === undefined || mapaSelected === null || mapaSelected === "") {
-                mapaSelected = "NewMap";
-            }
-            mapa = {id: mapaSelected, map: [], owner: webId!.split("profile")[0], ownerName: x}
-            await guardarEnPOD(props.newPlace!, mapa, mapaSelected, webId, session);
-        }
+    if (mapa !== undefined && mapa !== null) {
+        await guardarEnPOD(props.newPlace!, mapa, mapaSelected, webId, session);
     } else {
-        await addMarker(props.newPlace!);
+        var x = await getProfileName(webId!);
+        if (mapaSelected === undefined || mapaSelected === null || mapaSelected === "") {
+            mapaSelected = "NewMap";
+        }
+        mapa = {id: mapaSelected, map: [], owner: webId!.split("profile")[0], ownerName: x}
+        await guardarEnPOD(props.newPlace!, mapa, mapaSelected, webId, session);
     }
+
     let puntosGanados = 10;
     puntosGanados += fotos!.length * 5;
     if (comentario.text.trim() !== "") {
@@ -225,7 +221,7 @@ export async function guardarDatos(webId: string | undefined, props: FormProps, 
     await sumarPuntos(session, webId!.split("/profile")[0] + "/public/map/level.info", puntosGanados);
 }
 
-export async function getDirectionFromAPI(lat: number, lng: number, setDir:any) {
+export async function getDirectionFromAPI(lat: number, lng: number, setDir: any) {
     const response = await fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=` + process.env.REACT_APP_GOOGLE_API_KEY);
     const data = await response.json();
@@ -253,7 +249,7 @@ export function CustomMarkerIcon(propsM: any) {
             imagen = IconoRestaurante
             break;
         case "Tienda":
-            imagen =  IconoTienda
+            imagen = IconoTienda
             break;
         case "Parking":
             imagen = IconoParking
