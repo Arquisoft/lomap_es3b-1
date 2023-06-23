@@ -6,6 +6,7 @@ import HelpPage from './pages/help/Help';
 import './App.css';
 import NavBar from "./commonComponents/components/NavBar";
 import Profile from "./pages/perfil/perfil";
+import About from "./pages/about/About";
 
 
 
@@ -20,6 +21,7 @@ function App(): JSX.Element {
                         <Route path='/' element={<MapsPage/>}/>
                         <Route path='/map' element={<MapsPage/>}/>
                         <Route path='/help' element={<HelpPage/>}/>
+                        <Route path='/about' element={<About/>}/>
                         <Route path='/profile' element={<Profile/>}/>
                     </Routes>
                 </Router>

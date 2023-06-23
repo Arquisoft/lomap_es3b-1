@@ -34,7 +34,7 @@ function ResponsiveAppBar() {
     //De la session sacar el webId
     const {webId} = session.info;
 
-    const pages = ['Home', 'Help'];
+    const pages = ['Home', 'Help', 'About'];
 
     const getLevelAndProgress = async () => {
 
@@ -146,6 +146,14 @@ function ResponsiveAppBar() {
                                 to='/help'
                                 sx={{my: 2, color: 'white', display: 'block'}}>
                                 Ayuda
+                            </Button>
+                            <Button
+                                key='About'
+                                onClick={handleCloseNavMenu}
+                                component={Link}
+                                to='/About'
+                                sx={{my: 2, color: 'white', display: 'block'}}>
+                                About
                             </Button>
                         </Box>
                         {!session.info.isLoggedIn ? (
