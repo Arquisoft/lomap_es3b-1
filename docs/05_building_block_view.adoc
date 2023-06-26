@@ -24,7 +24,6 @@ image:05_Esquema_Whitebox.png["Whitebox"]
 |===
 | Nombre | Descripción
 | SOLID | Cada usuario tiene su POD y permite a la aplicación acceder a sus datos.
-| Base de Datos | Provee a la aplicación de la información necesaria, ya sean los mapas o los puntos de interés.
 | Interfaz de usuario | La interfaz con la que interactúa el usuario.
 | Cloudinary | Provee a la aplicación de las imágenes que incluya el usuario al guardar un lugar.
 | API de Google Maps | Proporciona direcciones exactas a la aplicación en base a las coordenadas de un lugar seleccionado.

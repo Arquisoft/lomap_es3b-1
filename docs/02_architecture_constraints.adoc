@@ -12,9 +12,6 @@
 
 |Seguridad
 |La información de los usuarios se almacenará en PODs siguiendo los principios SOLID.
-
-|Base de Datos
-|Usaremos TBD.
 |===
 
 === Restricciones organizacionales
